@@ -11,79 +11,69 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    var level: Level!
     
-    override func didMove(to view: SKView) {
+    let TileWidth: CGFloat = 60.0
+    let TileHeight: CGFloat = 60.0
+    
+    let gameLayer = SKNode()
+    let obstaclesLayer = SKNode()
+    let tilesLayer = SKNode()
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder) is not used in this app")
+    }
+    
+    override init(size: CGSize) {
+        super.init(size: size)
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        let background = SKSpriteNode(imageNamed: "background")
+        background.size = size
+        addChild(background)
+        addChild(gameLayer)
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
     }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
+    func addTilesAndObstacles(){
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        let layerPosition = CGPoint(
+            x: -TileWidth * CGFloat(level.numColumns!) / 2,
+            y: -TileHeight * CGFloat(level.numRows!) / 2)
+        tilesLayer.position = layerPosition
+        gameLayer.addChild(tilesLayer)
+        
+        obstaclesLayer.position = layerPosition
+        gameLayer.addChild(obstaclesLayer)
+        
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+    func addSprites(for obstacles: Set<Obstacle>) {
+        for obstacle in obstacles {
+            let sprite = SKSpriteNode(imageNamed: obstacle.obstacleType.spriteName)
+            sprite.size = CGSize(width: TileWidth, height: TileHeight)
+            sprite.position = pointFor(column: obstacle.column, row: obstacle.row)
+            obstaclesLayer.addChild(sprite)
+            obstacle.sprite = sprite
+        }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+    func addTiles() {
+        for row in 0..<level.numRows! {
+            for column in 0..<level.numColumns! {
+                
+                                    let tileNode = SKSpriteNode(imageNamed: "tile")
+                    tileNode.size = CGSize(width: TileWidth, height: TileHeight)
+                    tileNode.position = pointFor(column: column, row: row)
+                    tilesLayer.addChild(tileNode)
+                
+            }
+        }
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+    func pointFor(column: Int, row: Int) -> CGPoint {
+        return CGPoint(
+            x: CGFloat(column)*TileWidth + TileWidth/2,
+            y: CGFloat(row)*TileHeight + TileHeight/2)
     }
 }

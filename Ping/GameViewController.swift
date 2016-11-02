@@ -12,44 +12,43 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
+    var scene: GameScene!
+    var level: Level!
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
-
+    
     override var shouldAutorotate: Bool {
         return true
     }
-
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
+        return [.landscape]
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+    func beginGame() {
+        let obstacles = level.shuffle()
+        scene.addSprites(for: obstacles)
     }
-
-    override var prefersStatusBarHidden: Bool {
-        return true
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Configure the view.
+        let skView = view as! SKView
+        skView.isMultipleTouchEnabled = false
+        level = Level(filename: "Level_0")
+        // Create and configure the scene.
+        scene = GameScene(size: skView.bounds.size)
+        scene.level = level
+        scene.addTilesAndObstacles()
+        scene.scaleMode = .aspectFill
+        
+        scene.addTiles()
+        
+        
+        // Present the scene.
+        skView.presentScene(scene)
+        beginGame()
     }
 }
