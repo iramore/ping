@@ -31,6 +31,13 @@ import SpriteKit
 
 class Tile
 {
+    
+    var type:Int?
+    
+    init(type: Int){
+        self.type = type
+        
+    }
 }
     
 //}: CustomStringConvertible, Hashable {

@@ -25,6 +25,7 @@
 		D321EBEF1DCA2D3F00E50A4F /* Level_4.json in Resources */ = {isa = PBXBuildFile; fileRef = D321EBEA1DCA2D3F00E50A4F /* Level_4.json */; };
 		D321EBF11DCA2D6900E50A4F /* Exntensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321EBF01DCA2D6900E50A4F /* Exntensions.swift */; };
 		D321EBF31DCA2EFE00E50A4F /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321EBF21DCA2EFE00E50A4F /* Obstacle.swift */; };
+		D3D1DBA41DD74AA7003AB527 /* Basket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D1DBA31DD74AA7003AB527 /* Basket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		D321EBEA1DCA2D3F00E50A4F /* Level_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_4.json; sourceTree = "<group>"; };
 		D321EBF01DCA2D6900E50A4F /* Exntensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Exntensions.swift; path = ../Exntensions.swift; sourceTree = "<group>"; };
 		D321EBF21DCA2EFE00E50A4F /* Obstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
+		D3D1DBA31DD74AA7003AB527 /* Basket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Basket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				D321EBF01DCA2D6900E50A4F /* Exntensions.swift */,
 				D321EBB61DC9E49400E50A4F /* Actions.sks */,
 				D321EBB81DC9E49400E50A4F /* GameScene.swift */,
+				D3D1DBA31DD74AA7003AB527 /* Basket.swift */,
 				D321EBBA1DC9E49400E50A4F /* GameViewController.swift */,
 				D321EBBC1DC9E49400E50A4F /* Main.storyboard */,
 				D321EBBF1DC9E49400E50A4F /* Assets.xcassets */,
@@ -196,6 +199,7 @@
 				D321EBBB1DC9E49400E50A4F /* GameViewController.swift in Sources */,
 				D321EBB31DC9E49400E50A4F /* AppDelegate.swift in Sources */,
 				D321EBDA1DCA17D500E50A4F /* Tile.swift in Sources */,
+				D3D1DBA41DD74AA7003AB527 /* Basket.swift in Sources */,
 				D321EBE01DCA1EF900E50A4F /* Array2D.swift in Sources */,
 				D321EBF31DCA2EFE00E50A4F /* Obstacle.swift in Sources */,
 			);

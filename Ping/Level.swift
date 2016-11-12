@@ -28,9 +28,6 @@ class Level {
         return obstacles?[column, row]
     }
     
-    func shuffle() -> Set<Obstacle> {
-        return createInitialObstacles()
-    }
     
     init(filename: String) {
         guard let dictionary = Dictionary<String, AnyObject>.loadJSONFromBundle(filename: filename) else { return }
@@ -44,30 +41,49 @@ class Level {
             let tileRow = numRows! - row - 1
             for (column, value) in rowArray.enumerated() {
                 if value == 1 {
-                    tiles?[column, tileRow] = Tile()
+                    tiles?[column, tileRow] = Tile(type: 1)
+                }
+                if value == 2{
+                    tiles?[column, tileRow] = Tile(type:2)
+                }
+                if value == 3{
+                    tiles?[column, tileRow] = Tile(type: 3)
                 }
             }
         }
     }
 
     
-    private func createInitialObstacles() -> Set<Obstacle> {
-        var set = Set<Obstacle>()
-        
-        
+    func createInitialObstacles() -> [Obstacle] {
+        var list = [Obstacle]()
         
         for row in 0..<numRows! {
             for column in 0..<numColumns! {
                 
                 if tiles?[column, row] != nil {
-                let obstacleType = ObstacleType.random()
+                    if(tiles?[column, row]?.type == 1){
+                        let obstacle = Obstacle(column: column, row: row, rotation: RotationType.positive)
+                        obstacles?[column, row] = obstacle
+                        list.append(obstacle)
+                        
+                    }
+                    if(tiles?[column, row]?.type == 2){
+                        let obstacle = Obstacle(column: column, row: row, rotation: RotationType.reverse)
+                        obstacles?[column, row] = obstacle
+                        list.append(obstacle)
+                        
+                    }
+                    if(tiles?[column, row]?.type == 3){
+                        let rotationType = RotationType.random()
+                        
+                        let obstacle = Obstacle(column: column, row: row, rotation: rotationType)
+                        obstacles?[column, row] = obstacle
+                        list.append(obstacle)
+                    }
                 
-                let obstacle = Obstacle(column: column, row: row, obstacleType: obstacleType)
-                obstacles?[column, row] = obstacle
-                set.insert(obstacle)
                 }
             }
         }
-        return set
+        return list
     }
 }

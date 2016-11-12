@@ -9,50 +9,32 @@
 import Foundation
 import SpriteKit
 
-enum ObstacleType: Int, CustomStringConvertible {
-    case unknown = 0, usual, reverse, gorizontal
+enum RotationType: Int{
+    case positive = 0, reverse
     
-    static func random() -> ObstacleType {
-        return ObstacleType(rawValue: Int(arc4random_uniform(2)) + 1)!
+    static func random() -> RotationType {
+        return RotationType(rawValue: Int(arc4random_uniform(2)))!
     }
     
-    
-    var spriteName: String {
-        let spriteNames = [
-            "obstacle","obstacle_reverse", "gorizontal"]
-        
-        return spriteNames[rawValue - 1]
-    }
-    
-    var highlightedSpriteName: String {
-        return spriteName + "-highlighted"
-    }
-    var description: String {
-        return spriteName
+    var angle: CGFloat{
+        let angles = [CGFloat.pi/4,-CGFloat.pi/4]
+        return angles[rawValue]
     }
 }
 
-class Obstacle: CustomStringConvertible, Hashable {
+
+class Obstacle {
     var column: Int
     var row: Int
     var sprite: SKSpriteNode?
-    let obstacleType: ObstacleType
+    let rotation: RotationType
     
-    init(column: Int, row: Int, obstacleType: ObstacleType) {
+    init(column: Int, row: Int, rotation: RotationType) {
         self.column = column
         self.row = row
-        self.obstacleType = obstacleType
+        self.rotation = rotation
     }
     
-    var description: String {
-        return "type:\(obstacleType) square:(\(column),\(row))"
-    }
     
-    var hashValue: Int {
-        return row*10 + column
-    }
-    
-    static func ==(lhs: Obstacle, rhs: Obstacle) -> Bool {
-        return lhs.column == rhs.column && lhs.row == rhs.row
-    }
+
 }

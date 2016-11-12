@@ -27,22 +27,23 @@ class GameViewController: UIViewController {
         return [.landscape]
     }
     func beginGame() {
-        let obstacles = level.shuffle()
+        let obstacles = level.createInitialObstacles()
         scene.addSprites(for: obstacles)
         scene.addBall()
-        scene.ball.physicsBody?.applyImpulse(CGVector(dx: -55, dy: 0))
+        scene.ball.physicsBody?.applyImpulse(CGVector(dx: -3, dy: 0))
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let skView = view as! SKView
         skView.isMultipleTouchEnabled = false
-        level = Level(filename: "Level_1")
+        level = Level(filename: "Level_2")
         scene = GameScene(size: skView.bounds.size)
         scene.level = level
         scene.addTilesAndObstacles()
         scene.scaleMode = .aspectFill
         scene.addTiles()
+        scene.addBasckets()
         skView.presentScene(scene)
         beginGame()
     }
