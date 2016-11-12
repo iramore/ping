@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 enum ObstacleType: Int, CustomStringConvertible {
-    case unknown = 0, usual, reverse
+    case unknown = 0, usual, reverse, gorizontal
     
     static func random() -> ObstacleType {
         return ObstacleType(rawValue: Int(arc4random_uniform(2)) + 1)!
@@ -19,7 +19,7 @@ enum ObstacleType: Int, CustomStringConvertible {
     
     var spriteName: String {
         let spriteNames = [
-            "obstacle","obstacle_reverse"]
+            "obstacle","obstacle_reverse", "gorizontal"]
         
         return spriteNames[rawValue - 1]
     }

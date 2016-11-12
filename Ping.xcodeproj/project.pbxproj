@@ -23,7 +23,7 @@
 		D321EBED1DCA2D3F00E50A4F /* Level_2.json in Resources */ = {isa = PBXBuildFile; fileRef = D321EBE81DCA2D3F00E50A4F /* Level_2.json */; };
 		D321EBEE1DCA2D3F00E50A4F /* Level_3.json in Resources */ = {isa = PBXBuildFile; fileRef = D321EBE91DCA2D3F00E50A4F /* Level_3.json */; };
 		D321EBEF1DCA2D3F00E50A4F /* Level_4.json in Resources */ = {isa = PBXBuildFile; fileRef = D321EBEA1DCA2D3F00E50A4F /* Level_4.json */; };
-		D321EBF11DCA2D6900E50A4F /* Entensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321EBF01DCA2D6900E50A4F /* Entensions.swift */; };
+		D321EBF11DCA2D6900E50A4F /* Exntensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321EBF01DCA2D6900E50A4F /* Exntensions.swift */; };
 		D321EBF31DCA2EFE00E50A4F /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321EBF21DCA2EFE00E50A4F /* Obstacle.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,7 +46,7 @@
 		D321EBE81DCA2D3F00E50A4F /* Level_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_2.json; sourceTree = "<group>"; };
 		D321EBE91DCA2D3F00E50A4F /* Level_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_3.json; sourceTree = "<group>"; };
 		D321EBEA1DCA2D3F00E50A4F /* Level_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_4.json; sourceTree = "<group>"; };
-		D321EBF01DCA2D6900E50A4F /* Entensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Entensions.swift; path = ../Entensions.swift; sourceTree = "<group>"; };
+		D321EBF01DCA2D6900E50A4F /* Exntensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Exntensions.swift; path = ../Exntensions.swift; sourceTree = "<group>"; };
 		D321EBF21DCA2EFE00E50A4F /* Obstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,7 +83,7 @@
 			children = (
 				D321EBB21DC9E49400E50A4F /* AppDelegate.swift */,
 				D321EBB41DC9E49400E50A4F /* GameScene.sks */,
-				D321EBF01DCA2D6900E50A4F /* Entensions.swift */,
+				D321EBF01DCA2D6900E50A4F /* Exntensions.swift */,
 				D321EBB61DC9E49400E50A4F /* Actions.sks */,
 				D321EBB81DC9E49400E50A4F /* GameScene.swift */,
 				D321EBBA1DC9E49400E50A4F /* GameViewController.swift */,
@@ -191,7 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D321EBE21DCA1F9600E50A4F /* Level.swift in Sources */,
-				D321EBF11DCA2D6900E50A4F /* Entensions.swift in Sources */,
+				D321EBF11DCA2D6900E50A4F /* Exntensions.swift in Sources */,
 				D321EBB91DC9E49400E50A4F /* GameScene.swift in Sources */,
 				D321EBBB1DC9E49400E50A4F /* GameViewController.swift in Sources */,
 				D321EBB31DC9E49400E50A4F /* AppDelegate.swift in Sources */,
@@ -357,6 +357,7 @@
 				D321EBC91DC9E49500E50A4F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

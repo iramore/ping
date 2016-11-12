@@ -29,25 +29,20 @@ class GameViewController: UIViewController {
     func beginGame() {
         let obstacles = level.shuffle()
         scene.addSprites(for: obstacles)
+        scene.addBall()
+        scene.ball.physicsBody?.applyImpulse(CGVector(dx: -55, dy: 0))
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Configure the view.
         let skView = view as! SKView
         skView.isMultipleTouchEnabled = false
-        level = Level(filename: "Level_0")
-        // Create and configure the scene.
+        level = Level(filename: "Level_1")
         scene = GameScene(size: skView.bounds.size)
         scene.level = level
         scene.addTilesAndObstacles()
         scene.scaleMode = .aspectFill
-        
         scene.addTiles()
-        
-        
-        // Present the scene.
         skView.presentScene(scene)
         beginGame()
     }
