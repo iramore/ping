@@ -9,7 +9,13 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+struct PhysicsCatagory {
+    static let Obstacle : UInt32 = 0x1 << 1
+    static let Basket : UInt32 = 0x1 << 3
+    static let Ball : UInt32 = 0x1 << 2
+}
+
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var level: Level!
     
@@ -42,6 +48,7 @@ class GameScene: SKScene {
         border.restitution = 1
         
         self.physicsBody = border
+        self.physicsWorld.contactDelegate = self
     }
     
     func addTilesAndObstacles(){
@@ -67,75 +74,64 @@ class GameScene: SKScene {
             sprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             sprite.position = pointFor(column: obstacle.column, row: obstacle.row)
             sprite.physicsBody?.linearDamping=0.1
-            sprite.physicsBody?.categoryBitMask = 1
-            sprite.physicsBody?.collisionBitMask = 2
-            sprite.physicsBody?.contactTestBitMask = 2
-            sprite.physicsBody?.fieldBitMask = 0
+            sprite.physicsBody?.categoryBitMask = PhysicsCatagory.Obstacle
+            sprite.physicsBody?.collisionBitMask = PhysicsCatagory.Ball
+            sprite.physicsBody?.contactTestBitMask = PhysicsCatagory.Ball
             sprite.physicsBody?.angularDamping=0.1
             sprite.physicsBody?.velocity = CGVector(dx:0,dy:0)
             obstaclesLayer.addChild(sprite)
             obstacle.sprite = sprite
         }
     }
-    func addBasckets(){
-        for row in 0..<level.numRows! {
-            if(row == 0){
-                for column in 0..<level.numColumns!{
-                    
-                    var point = pointFor(column: column, row: level.numRows!)
-                    let texture = SKTexture(imageNamed: "bascket")
-                    let backet = SKSpriteNode(texture: texture)
-                    backet.position = point
-                    backet.position.y -= TileWidth/2 - BasketSize/2
-                    obstaclesLayer.addChild(backet)
-                    
-                    point = pointFor(column: column, row: -1)
-                    let backetDown = SKSpriteNode(texture: texture)
-                    backetDown.position = point
-                    backetDown.position.y += TileWidth/2 - BasketSize/2
-                    obstaclesLayer.addChild(backetDown)
-                    
-                }
-                
+    func addBascketsAndStart(for baskets: [Basket]){
+        
+        for basket in baskets{
+            if basket.column! != level.startColumn! || basket.row! != level.startRow! {
+                let point = pointForBasket(column: basket.column!, row: basket.row!)
+                let texture = SKTexture(imageNamed: "bascket")
+                let backetNode = SKSpriteNode(texture: texture)
+                backetNode.position = point
+                setPhysicBodyForBasketNode(node: backetNode)
+                obstaclesLayer.addChild(backetNode)
+                basket.sprite = backetNode
             }
-            var point = pointFor(column: -1, row: row)
-            let texture = SKTexture(imageNamed: "bascket")
-            let backet = SKSpriteNode(texture: texture)
-            backet.position = point
-            backet.position.x += TileWidth/2 - BasketSize/2
-            obstaclesLayer.addChild(backet)
-            
-            point = pointFor(column: level.numColumns!, row: row)
-            
-            let backetRight = SKSpriteNode(texture: texture)
-            backetRight.position = point
-            backetRight.position.x -= TileWidth/2 - BasketSize/2
-            obstaclesLayer.addChild(backetRight)
-
-            
         }
+        let point = pointForBasket(column: level.startColumn!, row: level.startRow!)
+        let texture = SKTexture(imageNamed: "start")
+        let startNode = SKSpriteNode(texture: texture)
+        startNode.position = point
+        obstaclesLayer.addChild(startNode)
+        
+    }
+    
+    func setPhysicBodyForBasketNode(node: SKSpriteNode){
+        node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
+        node.physicsBody?.affectedByGravity = false
+        node.physicsBody?.isDynamic = false
+        node.physicsBody?.categoryBitMask = PhysicsCatagory.Basket
+        node.physicsBody?.collisionBitMask = 0
+        node.physicsBody?.contactTestBitMask = PhysicsCatagory.Ball
     }
     
     func addTiles() {
         for row in 0..<level.numRows! {
             for column in 0..<level.numColumns! {
-                    let tileNode = SKSpriteNode(imageNamed: "tile")
-                    tileNode.size = CGSize(width: TileWidth, height: TileHeight)
-                    tileNode.position = pointFor(column: column, row: row)
-                    tilesLayer.addChild(tileNode)
-                
+                let tileNode = SKSpriteNode(imageNamed: "tile")
+                tileNode.size = CGSize(width: TileWidth, height: TileHeight)
+                tileNode.position = pointFor(column: column, row: row)
+                tilesLayer.addChild(tileNode)
             }
         }
     }
     
     func addBall(){
-        ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width/2)
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width/2-2)
         ball.physicsBody?.restitution = 1
         ball.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         ball.physicsBody?.friction = 0
-        ball.physicsBody?.categoryBitMask = 2
-        ball.physicsBody?.collisionBitMask = 1
-        ball.physicsBody?.contactTestBitMask = 1
+        ball.physicsBody?.categoryBitMask = PhysicsCatagory.Ball
+        ball.physicsBody?.collisionBitMask = PhysicsCatagory.Obstacle
+        ball.physicsBody?.contactTestBitMask = PhysicsCatagory.Basket
         ball.physicsBody?.fieldBitMask = 0
         ball.physicsBody?.angularDamping=0
         ball.physicsBody?.linearDamping=0
@@ -148,12 +144,75 @@ class GameScene: SKScene {
         obstaclesLayer.addChild(ball)
     }
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        let firstBody = contact.bodyA
+        let secondBody = contact.bodyB
+        
+        if firstBody.categoryBitMask == PhysicsCatagory.Ball && secondBody.categoryBitMask == PhysicsCatagory.Basket{
+            let result = convertPointForBasket(point: CGPoint(x: ball.position.x, y: ball.position.y))
+            if result.success {
+                print("row \(result.row) column \(result.column)")
+                if let basket = level.basketAt(column: result.column, row: result.row) {
+                    let texture = SKTexture(imageNamed: "basket_with_ball")
+                    //basket.sprite.size = CGSize(width: TileWidth, height: TileHeight)
+                    basket.sprite!.run(SKAction.setTexture(texture))
+                    
+                }
+                
+            }
+            firstBody.node?.removeFromParent()
+            
+            
+        }
+        else if firstBody.categoryBitMask == PhysicsCatagory.Basket && secondBody.categoryBitMask == PhysicsCatagory.Ball {
+            let result = convertPointForBasket(point: CGPoint(x: ball.position.x, y: ball.position.y))
+            if result.success {
+                print("row \(result.row) column \(result.column)")
+                if let basket = level.basketAt(column: result.column, row: result.row) {
+                    let texture = SKTexture(imageNamed: "basket_with_ball")
+                    //basket.sprite.size = CGSize(width: TileWidth, height: TileHeight)
+                    basket.sprite!.run(SKAction.setTexture(texture))
+                    
+                }
+            }
+            secondBody.node?.removeFromParent()
+        }
+    }
+    
+    func convertPointForBasket(point: CGPoint) -> (success: Bool, column: Int, row: Int) {
+        if point.x >= 0 && point.x < CGFloat(level.numColumns!)*TileWidth &&
+            point.y >= 0 && point.y < CGFloat(level.numRows!)*TileHeight {
+            return (true, Int(point.x / TileWidth), Int(point.y / TileHeight))
+        } else {
+            return (false, 0, 0)  // invalid location
+        }
+    }
+    
     func pointFor(column: Int, row: Int) -> CGPoint {
-            return CGPoint(
+        return CGPoint(
             x: CGFloat(column)*TileWidth + TileWidth/2,
             y: CGFloat(row)*TileHeight + TileHeight/2)
     }
-   
+    func pointForBasket(column: Int, row: Int) -> CGPoint {
+        if column == -1 {
+            return CGPoint(
+                x: CGFloat(column)*TileWidth + TileWidth - BasketSize/2,
+                y: CGFloat(row)*TileHeight + TileHeight/2)
+        } else if column == level.numColumns! {
+            return CGPoint(
+                x: CGFloat(column)*TileWidth + BasketSize/2,
+                y: CGFloat(row)*TileHeight + TileHeight/2)
+        } else if row == -1 {
+            return CGPoint(
+                x: CGFloat(column)*TileWidth + TileHeight/2,
+                y: CGFloat(row)*TileHeight + TileWidth - BasketSize/2)
+        }else {
+            return CGPoint(
+                x: CGFloat(column)*TileWidth + TileWidth/2,
+                y: CGFloat(row)*TileHeight + BasketSize/2)
+        }
+    }
+    
     func pointForStart(column: Int, row: Int) -> CGPoint {
         return CGPoint(
             x: CGFloat(column)*TileWidth,
@@ -180,5 +239,7 @@ class GameScene: SKScene {
         }
     }
     
-
+    
+    
+    
 }

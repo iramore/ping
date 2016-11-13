@@ -21,9 +21,13 @@ struct Array2D<T> {
     
     subscript(column: Int, row: Int) -> T? {
         get {
+            
             return array[row*columns + column]
+            
         }
         set {
+           
+
             array[row*columns + column] = newValue
         }
     }

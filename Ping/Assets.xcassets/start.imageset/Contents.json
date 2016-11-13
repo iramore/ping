@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "obstacle_reverse.png",
+      "filename" : "Triangle.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "obstacle_reverse@2x.png",
+      "filename" : "Triangle@2x.png",
       "scale" : "2x"
     },
     {

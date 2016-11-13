@@ -29,8 +29,10 @@ class GameViewController: UIViewController {
     func beginGame() {
         let obstacles = level.createInitialObstacles()
         scene.addSprites(for: obstacles)
+        let baskets = level.createInitialBaskets()
+        scene.addBascketsAndStart(for: baskets)
         scene.addBall()
-        scene.ball.physicsBody?.applyImpulse(CGVector(dx: -3, dy: 0))
+        scene.ball.physicsBody?.applyImpulse(CGVector(dx: -1, dy: 0))
     }
     
     override func viewDidLoad() {
@@ -43,7 +45,7 @@ class GameViewController: UIViewController {
         scene.addTilesAndObstacles()
         scene.scaleMode = .aspectFill
         scene.addTiles()
-        scene.addBasckets()
+        
         skView.presentScene(scene)
         beginGame()
     }

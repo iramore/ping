@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "obstacle.png",
+      "filename" : "basket_with_ball.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "obstacle@2x.png",
+      "filename" : "Group 2@2x.png",
       "scale" : "2x"
     },
     {
