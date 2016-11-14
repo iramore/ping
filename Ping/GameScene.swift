@@ -105,7 +105,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setPhysicBodyForBasketNode(node: SKSpriteNode){
-        node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
+        let size = CGSize(width: node.size.width-31, height: node.size.height-31)
+        node.physicsBody = SKPhysicsBody(rectangleOf: size)
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.isDynamic = false
         node.physicsBody?.categoryBitMask = PhysicsCatagory.Basket
@@ -180,9 +181,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func convertPointForBasket(point: CGPoint) -> (success: Bool, column: Int, row: Int) {
-        if point.x >= 0 && point.x < CGFloat(level.numColumns!)*TileWidth &&
-            point.y >= 0 && point.y < CGFloat(level.numRows!)*TileHeight {
-            return (true, Int(point.x / TileWidth), Int(point.y / TileHeight))
+        print(point)
+        if point.x < 0 && point.y >= 0 && point.y < CGFloat(level.numRows!)*TileWidth {
+            return (true, -1, Int(point.y/TileHeight))
+        } else if point.y < 0 && point.x >= 0 && point.x < CGFloat(level.numColumns!)*TileWidth{
+            return (true, Int(point.x/TileHeight), -1)
+        } else if point.x > CGFloat(level.numColumns!)*TileWidth && point.y >= 0 && point.y < CGFloat(level.numRows!)*TileWidth{
+            return (true, level.numColumns!, Int(point.y/TileHeight))
+        } else if point.y > CGFloat(level.numRows!)*TileHeight && point.x >= 0 && point.x < CGFloat(level.numColumns!)*TileWidth{
+            return (true, Int(point.x/TileHeight), level.numRows!)
         } else {
             return (false, 0, 0)  // invalid location
         }

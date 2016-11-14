@@ -39,7 +39,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         let skView = view as! SKView
         skView.isMultipleTouchEnabled = false
-        level = Level(filename: "Level_2")
+        level = Level(filename: "Level_3")
         scene = GameScene(size: skView.bounds.size)
         scene.level = level
         scene.addTilesAndObstacles()
