@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "gorizontal.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "gorizontal@2x.png",
+      "filename" : "гориз.png",
       "scale" : "2x"
     },
     {

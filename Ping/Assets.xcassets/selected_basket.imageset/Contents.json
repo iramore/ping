@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "cell.png",
+      "filename" : "Group 2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Group 2@2x.png",
       "scale" : "2x"
     },
     {

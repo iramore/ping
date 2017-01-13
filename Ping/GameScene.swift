@@ -19,14 +19,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var level: Level!
     
-    let TileWidth: CGFloat = 60.0
-    let TileHeight: CGFloat = 60.0
-    let BasketSize: CGFloat = 42.0
+    let TileWidth: CGFloat = 40.0
+    let TileHeight: CGFloat = 40.0
+    let BasketSize: CGFloat = 40.0
+    let ObstacleWidth: CGFloat = 35.0
+    let ObstacleHeight: CGFloat = 8.0
+    let BallSize: CGFloat = 15.0
+    let PhysicBodyBasketOffset: CGFloat = 15.0
+    let DeskOffset: CGFloat = -20.0
     
     let gameLayer = SKNode()
     let obstaclesLayer = SKNode()
     let tilesLayer = SKNode()
-    var ball = SKSpriteNode(imageNamed: "ball")
+    var ball : SKSpriteNode?
+    var selected = false
+    var selectedBasket: Basket?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder) is not used in this app")
@@ -34,12 +41,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override init(size: CGSize) {
         super.init(size: size)
-        
+        ball = SKSpriteNode(color: UIColor.blue, size: CGSize(width: BallSize,height:  BallSize))
+        let ballTexture = SKTexture(imageNamed: "face")
+        ball!.texture = ballTexture
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         let background = SKSpriteNode(imageNamed: "background")
         background.size = size
         addChild(background)
+        let desk = SKSpriteNode(imageNamed: "desk")
+        desk.position = CGPoint(x: 0, y: DeskOffset)
+        desk.size = size
+        addChild(desk)
         addChild(gameLayer)
         
         let border  = SKPhysicsBody(edgeLoopFrom: self.frame)
@@ -54,7 +67,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addTilesAndObstacles(){
         let layerPosition = CGPoint(
             x: -TileWidth * CGFloat(level.numColumns!) / 2,
-            y: -TileHeight * CGFloat(level.numRows!) / 2)
+            y: -TileHeight * CGFloat(level.numRows!) / 2 - 25)
         tilesLayer.position = layerPosition
         gameLayer.addChild(tilesLayer)
         obstaclesLayer.position = layerPosition
@@ -64,7 +77,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addSprites(for obstacles: [Obstacle]) {
         for obstacle in obstacles {
             let texture = SKTexture(imageNamed: "gorizontal")
-            let sprite = SKSpriteNode(texture: texture)
+            let sprite = SKSpriteNode(color: UIColor.blue, size: CGSize(width: ObstacleWidth,height:  ObstacleHeight))
+            sprite.texture = texture
             sprite.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sprite.size.width,                                                                   height: sprite.size.height))
             sprite.zRotation = obstacle.rotation.angle
             sprite.physicsBody?.isDynamic=false
@@ -89,7 +103,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if basket.column! != level.startColumn! || basket.row! != level.startRow! {
                 let point = pointForBasket(column: basket.column!, row: basket.row!)
                 let texture = SKTexture(imageNamed: "bascket")
-                let backetNode = SKSpriteNode(texture: texture)
+                let backetNode = SKSpriteNode(color: UIColor.blue, size: CGSize(width: BasketSize,height:  BasketSize))
+                backetNode.texture = texture
                 backetNode.position = point
                 setPhysicBodyForBasketNode(node: backetNode)
                 obstaclesLayer.addChild(backetNode)
@@ -105,7 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setPhysicBodyForBasketNode(node: SKSpriteNode){
-        let size = CGSize(width: node.size.width-31, height: node.size.height-31)
+        let size = CGSize(width: node.size.width-PhysicBodyBasketOffset, height: node.size.height-PhysicBodyBasketOffset)
         node.physicsBody = SKPhysicsBody(rectangleOf: size)
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.isDynamic = false
@@ -126,23 +141,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addBall(){
-        ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width/2-2)
-        ball.physicsBody?.restitution = 1
-        ball.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        ball.physicsBody?.friction = 0
-        ball.physicsBody?.categoryBitMask = PhysicsCatagory.Ball
-        ball.physicsBody?.collisionBitMask = PhysicsCatagory.Obstacle
-        ball.physicsBody?.contactTestBitMask = PhysicsCatagory.Basket
-        ball.physicsBody?.fieldBitMask = 0
-        ball.physicsBody?.angularDamping=0
-        ball.physicsBody?.linearDamping=0
-        ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-        ball.physicsBody?.allowsRotation = false
-        ball.physicsBody?.pinned = false
-        ball.position = pointFor(column: level.numColumns!, row: level.numRows!-1)
-        ball.position = CGPoint(x: ball.position.x, y: ball.position.y)
-        ball.physicsBody?.affectedByGravity=false
-        obstaclesLayer.addChild(ball)
+        ball!.physicsBody = SKPhysicsBody(circleOfRadius: (ball?.size.width)!/2-2)
+        ball!.physicsBody?.restitution = 1
+        ball!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        ball!.physicsBody?.friction = 0
+        ball!.physicsBody?.categoryBitMask = PhysicsCatagory.Ball
+        ball!.physicsBody?.collisionBitMask = PhysicsCatagory.Obstacle
+        ball!.physicsBody?.contactTestBitMask = PhysicsCatagory.Basket
+        ball!.physicsBody?.fieldBitMask = 0
+        ball!.physicsBody?.angularDamping = 0
+        ball!.physicsBody?.linearDamping = 0
+        ball!.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        ball!.physicsBody?.allowsRotation = false
+        ball!.physicsBody?.pinned = false
+        ball!.position = pointFor(column: level.numColumns!, row: level.numRows!-1)
+        ball!.position = CGPoint(x: (ball?.position.x)!, y: (ball?.position.y)!)
+        ball!.physicsBody?.affectedByGravity=false
+        obstaclesLayer.addChild(ball!)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -150,29 +165,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let secondBody = contact.bodyB
         
         if firstBody.categoryBitMask == PhysicsCatagory.Ball && secondBody.categoryBitMask == PhysicsCatagory.Basket{
-            let result = convertPointForBasket(point: CGPoint(x: ball.position.x, y: ball.position.y))
+            let result = convertPointForBasket(point: CGPoint(x: (ball?.position.x)!, y: (ball?.position.y)!))
             if result.success {
                 print("row \(result.row) column \(result.column)")
                 if let basket = level.basketAt(column: result.column, row: result.row) {
                     let texture = SKTexture(imageNamed: "basket_with_ball")
                     //basket.sprite.size = CGSize(width: TileWidth, height: TileHeight)
                     basket.sprite!.run(SKAction.setTexture(texture))
-                    
+                    if basket == selectedBasket {
+                        print("WIN")
+                    }
                 }
-                
             }
             firstBody.node?.removeFromParent()
             
             
         }
         else if firstBody.categoryBitMask == PhysicsCatagory.Basket && secondBody.categoryBitMask == PhysicsCatagory.Ball {
-            let result = convertPointForBasket(point: CGPoint(x: ball.position.x, y: ball.position.y))
+            let result = convertPointForBasket(point: CGPoint(x: (ball?.position.x)!, y: (ball?.position.y)!))
             if result.success {
                 print("row \(result.row) column \(result.column)")
                 if let basket = level.basketAt(column: result.column, row: result.row) {
                     let texture = SKTexture(imageNamed: "basket_with_ball")
                     //basket.sprite.size = CGSize(width: TileWidth, height: TileHeight)
                     basket.sprite!.run(SKAction.setTexture(texture))
+                    if basket == selectedBasket {
+                        print("WIN")
+                    }
                     
                 }
             }
@@ -200,6 +219,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             x: CGFloat(column)*TileWidth + TileWidth/2,
             y: CGFloat(row)*TileHeight + TileHeight/2)
     }
+    
     func pointForBasket(column: Int, row: Int) -> CGPoint {
         if column == -1 {
             return CGPoint(
@@ -233,20 +253,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for row in 0..<level.numRows! {
             for column in 0..<level.numColumns! {
                 let point = pointForStart(column: column, row: row)
-                if(ball.position.x > point.x && ball.position.y > point.y && ball.position.x < point.x+TileWidth && ball.position.y < point.y + TileHeight){
-                    if((ball.physicsBody?.velocity.dx)!>CGFloat(5) || (ball.physicsBody?.velocity.dx)!<CGFloat(-5)){
-                        ball.position.y = point.y+TileHeight/2
+                if((ball?.position.x)! > point.x && (ball?.position.y)! > point.y && (ball?.position.x)! < point.x+TileWidth && (ball?.position.y)! < point.y + TileHeight){
+                    if((ball?.physicsBody?.velocity.dx)!>CGFloat(5) || (ball?.physicsBody?.velocity.dx)!<CGFloat(-5)){
+                        ball?.position.y = point.y+TileHeight/2
                     }
-                    if((ball.physicsBody?.velocity.dy)!>CGFloat(5) || (ball.physicsBody?.velocity.dy)!<CGFloat(-5)){
-                        ball.position.x = point.x+TileWidth/2
+                    if((ball?.physicsBody?.velocity.dy)!>CGFloat(5) || (ball?.physicsBody?.velocity.dy)!<CGFloat(-5)){
+                        ball?.position.x = point.x+TileWidth/2
                     }
                 }
                 
             }
         }
     }
-    
-    
-    
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if selectedBasket == nil {
+            guard let touch = touches.first else { return }
+            // Convert the touch location to a point relative to the cookiesLayer.
+            let location = touch.location(in: obstaclesLayer)
+            
+            // If the touch is inside a square, then this might be the start of a
+            // swipe motion.
+            let result = convertPointForBasket(point: location)
+            if result.success {
+                print("row \(result.row) column \(result.column)")
+                print("row \(result.row) column \(result.column)")
+                if let basket = level.basketAt(column: result.column, row: result.row) {
+                    let texture = SKTexture(imageNamed: "selected_basket")
+                    //basket.sprite.size = CGSize(width: TileWidth, height: TileHeight)
+                    basket.sprite!.run(SKAction.setTexture(texture))
+                    ball?.physicsBody?.applyImpulse(CGVector(dx: -3, dy: 0))
+                    selectedBasket = Basket(column: result.column,row: result.row)
+                    
+                }
+            }
+            
+        }
+    }
 }
+
+
+
+
+

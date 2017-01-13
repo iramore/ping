@@ -32,20 +32,18 @@ class GameViewController: UIViewController {
         let baskets = level.createInitialBaskets()
         scene.addBascketsAndStart(for: baskets)
         scene.addBall()
-        scene.ball.physicsBody?.applyImpulse(CGVector(dx: -1, dy: 0))
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let skView = view as! SKView
         skView.isMultipleTouchEnabled = false
-        level = Level(filename: "Level_3")
+        level = Level(filename: "Level_2")
         scene = GameScene(size: skView.bounds.size)
         scene.level = level
         scene.addTilesAndObstacles()
         scene.scaleMode = .aspectFill
         scene.addTiles()
-        
         skView.presentScene(scene)
         beginGame()
     }
