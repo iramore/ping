@@ -17,7 +17,7 @@ class Level {
     
     var obstacles: Array2D<Obstacle>?// = Array2D<Obstacle>(columns: NumColumns, rows: NumRows)
     var tiles: Array2D<Tile>?
-    var baskets: Array2DOffset<Basket>?// = Array2D<Tile>(columns: NumColumns, rows: NumRows)
+    var baskets: Array2D<Basket>?// = Array2D<Tile>(columns: NumColumns, rows: NumRows)
     var numRows: Int?
     var numColumns: Int?
     var startRow: Int?
@@ -38,8 +38,8 @@ class Level {
     }
     
     func basketAt(column: Int, row: Int) -> Basket? {
-        assert(column >= -1 && column <= numColumns!)
-        assert(row >= -1 && row <= numRows!)
+        assert(column >= 0 && column <= numColumns!+1)
+        assert(row >= 0 && row <= numRows!+1)
         return baskets?[column, row]
     }
     
@@ -52,7 +52,7 @@ class Level {
         numColumns  = tilesArray[1].count
         tiles = Array2D<Tile>(columns: numColumns!, rows: numRows!)
         obstacles = Array2D<Obstacle>(columns: numColumns!, rows: numRows!)
-        baskets = Array2DOffset<Basket>(columns: numColumns!+2, rows: numRows!+2)
+        baskets = Array2D<Basket>(columns: numColumns!+2, rows: numRows!+2)
         
         for (index,strPoint) in start.enumerated(){
             if index == 0 {
@@ -127,26 +127,32 @@ class Level {
         var list = [Basket]()
         for row in 0..<numRows!+2 {
             for column in 0..<numColumns!+2 {
-                if (row == 0 && column != 0 && column != numColumns!+1) {
-                    let basket = Basket(column: column-1, row: -1)
-                    baskets?[column-1,-1] = basket
-                    list.append(basket)
-                } else if (row == numRows!+1 && column != 0 && column != numColumns!+1) {
-                    let basket = Basket(column: column-1, row: numRows!)
-                    baskets?[column-1,numRows!] = basket
+                if row == 0 && column != 0 && column != numColumns!+1 {
+                    let basket = Basket(column: column, row: row)
+                    baskets?[column, row] = basket
                     list.append(basket)
                 }
-                else if row > 0 && row < numRows!+1{
-                    if column == 0  {
-                        let basket = Basket(column: -1, row: row-1)
-                        baskets?[-1,row-1] = basket
-                        list.append(basket)
-                    } else if column == numColumns!+1 {
-                        let basket = Basket(column: numColumns!, row: row-1)
-                        baskets?[numColumns!,row-1] = basket
-                        list.append(basket)
-                    }
+                if row == numRows!+1 && column != 0 && column != numColumns!+1 {
+                    let basket = Basket(column: column, row: row)
+                    baskets?[column, row] = basket
+                    list.append(basket)
                 }
+                if row == 0 && column != 0 && column != numColumns!+1 {
+                    let basket = Basket(column: column, row: row)
+                    baskets?[column, row] = basket
+                    list.append(basket)
+                }
+                if column == 0 && row != 0 && row != numRows!+1 {
+                    let basket = Basket(column: column, row: row)
+                    baskets?[column, row] = basket
+                    list.append(basket)
+                }
+                if column == numColumns!+1 && row != 0 && row != numRows!+1 {
+                    let basket = Basket(column: column, row: row)
+                    baskets?[column, row] = basket
+                    list.append(basket)
+                }
+
             }
         }
         return list

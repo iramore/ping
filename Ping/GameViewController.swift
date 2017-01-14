@@ -14,6 +14,9 @@ class GameViewController: UIViewController {
 
     var scene: GameScene!
     var level: Level!
+    var timer = Timer()
+    let timeToRemember = 5
+    var counter : Int?
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -30,14 +33,32 @@ class GameViewController: UIViewController {
         let obstacles = level.createInitialObstacles()
         scene.addSprites(for: obstacles)
         let baskets = level.createInitialBaskets()
-        scene.addBascketsAndStart(for: baskets)
-        scene.addBall()
+        scene.addBasckets(for: baskets)
+        timer.invalidate()
+        counter = timeToRemember
+        timer  = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.timerAction), userInfo: nil, repeats: true)
+        
+    }
+    
+    func timerAction(){
+        counter! -= 1
+        if counter! < 0{
+            timer.invalidate()
+            scene.addStart()
+            scene.addBall()
+            counter = timeToRemember
+            scene.touchable = true
+            scene.hideObstacles()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let skView = view as! SKView
         skView.isMultipleTouchEnabled = false
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.showsPhysics = true
         level = Level(filename: "Level_2")
         scene = GameScene(size: skView.bounds.size)
         scene.level = level
