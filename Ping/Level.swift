@@ -8,10 +8,13 @@
 
 import Foundation
 
+let NumLevels = 4
+
 
 class Level {
     
     let overSizeConst = 89
+    
     
     
     

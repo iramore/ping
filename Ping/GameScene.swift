@@ -14,8 +14,12 @@ struct PhysicsCatagory {
     static let Basket : UInt32 = 0x1 << 3
     static let Ball : UInt32 = 0x1 << 2
 }
+protocol winLoseDelegate: class {
+    func gameActionCompleted(result: Bool)
+}
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    var delegateWinLose:winLoseDelegate?
     
     var level: Level!
     
@@ -25,7 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let ObstacleWidth: CGFloat = 35.0
     let ObstacleHeight: CGFloat = 8.0
     let BallSize: CGFloat = 18.0
-    let PhysicBodyBasketOffset: CGFloat = -22.0
+    let PhysicBodyBasketOffset: CGFloat = -32.0
     let DeskOffset: CGFloat = -20.0
     let TilesOffset: CGFloat = -25.0
     let BallPhBodyOffset: CGFloat = -2.0
@@ -240,8 +244,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     //basket.sprite.size = CGSize(width: TileWidth, height: TileHeight)
                     basket.sprite!.run(SKAction.setTexture(texture))
                     if basket == selectedBasket {
-                        print("WIN")
+                         print("WIN")
+                        delegateWinLose?.gameActionCompleted(result: true)
+                       
+                    } else{
+                        print("LOSE")
+                        delegateWinLose?.gameActionCompleted(result: false)
+                        
                     }
+
                 }
             }
             firstBody.node?.removeFromParent()
@@ -259,14 +270,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     //basket.sprite.size = CGSize(width: TileWidth, height: TileHeight)
                     basket.sprite!.run(SKAction.setTexture(texture))
                     if basket == selectedBasket {
-                        print("WIN")
-                    }
+                         print("WIN")
+                        delegateWinLose?.gameActionCompleted(result: true)
+                        
+                    } else{
+                        print("LOSE")
+                        delegateWinLose?.gameActionCompleted(result: false)
+                                            }
                     
                 }
             }
             secondBody.node?.removeFromParent()
         }
     }
+    
+    func animateGameOver(_ completion: @escaping () -> ()) {
+        let action = SKAction.move(by: CGVector(dx: 0, dy: -size.height), duration: 0.3)
+        action.timingMode = .easeIn
+        gameLayer.run(action, completion: completion)
+    }
+    
+    func animateBeginGame(_ completion: @escaping () -> ()) {
+        gameLayer.isHidden = false
+        gameLayer.position = CGPoint(x: 0, y: size.height)
+        let action = SKAction.move(by: CGVector(dx: 0, dy: -size.height), duration: 0.3)
+        action.timingMode = .easeOut
+        gameLayer.run(action, completion: completion)
+    }
+
     
     func convertPointForBasket(point: CGPoint) -> (success: Bool, column: Int, row: Int) {
         let pointObsLayer = basketsLayer.convert(point, to: obstaclesLayer)

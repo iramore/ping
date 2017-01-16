@@ -3,6 +3,5 @@
              [0, 0],
             ],
 
-  "targetScore" : 1000,
-  "moves" : 15,
+  "start" : [2,3]
 }
