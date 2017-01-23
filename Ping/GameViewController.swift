@@ -16,9 +16,9 @@ class GameViewController: UIViewController, winLoseDelegate {
     var scene: GameScene!
     var level: Level!
     var timer = Timer()
-    let timeToRemember = 2
+    let timeToRemember = 3
     var counter : Int?
-    var currentLevelNum = 1
+    var currentLevelNum = 2
     var score = 0
     var tapGestureRecognizer: UITapGestureRecognizer!
     
@@ -43,7 +43,7 @@ class GameViewController: UIViewController, winLoseDelegate {
         updateLabels()
         
         if result {
-            winLoseLabel.text = "WIN"
+            winLoseLabel.text = "Win"
             currentLevelNum = currentLevelNum < NumLevels ? currentLevelNum+1 : 1
             showGameOver()
         } else  {
@@ -55,6 +55,7 @@ class GameViewController: UIViewController, winLoseDelegate {
 
     func beginGame() {
         let obstacles = level.createInitialObstacles()
+        updateLabels()
         scene.addSprites(for: obstacles)
         let baskets = level.createInitialBaskets()
         scene.addBasckets(for: baskets)
@@ -89,6 +90,7 @@ class GameViewController: UIViewController, winLoseDelegate {
         skView.showsPhysics = true
         level = Level(filename: "Level_\(levelNum)")
         scene = GameScene(size: skView.bounds.size)
+        scene.initSizes()
         scene.delegateWinLose = self
         scene.level = level
         scene.addTilesAndObstacles()

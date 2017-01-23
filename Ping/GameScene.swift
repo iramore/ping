@@ -23,17 +23,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var level: Level!
     
-    let TileWidth: CGFloat = 40.0
-    let TileHeight: CGFloat = 40.0
-    let BasketSize: CGFloat = 40.0
-    let ObstacleWidth: CGFloat = 35.0
-    let ObstacleHeight: CGFloat = 8.0
-    let BallSize: CGFloat = 18.0
-    let PhysicBodyBasketOffset: CGFloat = -32.0
-    let DeskOffset: CGFloat = -20.0
-    let TilesOffset: CGFloat = -25.0
-    let BallPhBodyOffset: CGFloat = -2.0
-    let BallImpulseDx: CGFloat = -1.2
+    var TileWidth: CGFloat = 40.0
+    var TileHeight: CGFloat = 40.0
+    var BasketSize: CGFloat = 40.0
+    var ObstacleWidth: CGFloat = 35.0
+    var ObstacleHeight: CGFloat = 8.0
+    var BallSize: CGFloat = 18.0
+    var PhysicBodyBasketOffset: CGFloat = -32.0
+    var DeskOffset: CGFloat = -20.0
+    var TilesOffset: CGFloat = -25.0
+    var BallPhBodyOffset: CGFloat = -2.0
+    var BallImpulseDx: CGFloat = -1.2
     
     let gameLayer = SKNode()
     let obstaclesLayer = SKNode()
@@ -51,7 +51,81 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder) is not used in this app")
     }
-    
+    func initSizes(){
+        let screenSize = UIScreen.main.bounds
+        print(screenSize.width)
+        switch screenSize.width {
+        case 480.0:
+            print("iPhone 3,4")
+            TileWidth = 35.0
+            TileHeight  = 35.0
+            BasketSize  = 35.0
+            ObstacleWidth = 35.0
+            ObstacleHeight = 6.0
+            BallSize = 16.0
+            PhysicBodyBasketOffset = -30.0
+            DeskOffset = -20.0
+            TilesOffset = -25.0
+            BallPhBodyOffset = -2.0
+            BallImpulseDx = -1.0
+        case 568.0:
+            print("iPhone 5")
+            TileWidth = 40.0
+            TileHeight  = 40.0
+            BasketSize  = 40.0
+            ObstacleWidth = 35.0
+            ObstacleHeight = 8.0
+            BallSize = 18.0
+            PhysicBodyBasketOffset = -32.0
+            DeskOffset = -20.0
+            TilesOffset = -25.0
+            BallPhBodyOffset = -2.0
+            BallImpulseDx = -1.2
+        case 667.0:
+            print("iPhone 6")
+            TileWidth = 50.0
+            TileHeight  = 50.0
+            BasketSize  = 50.0
+            ObstacleWidth = 45.0
+            ObstacleHeight = 9.0
+            BallSize = 21.0
+            PhysicBodyBasketOffset = -42.0
+            DeskOffset = -20.0
+            TilesOffset = -25.0
+            BallPhBodyOffset = -3.0
+            BallImpulseDx = -1.2
+        case 736.0:
+            print("iPhone 6+")
+            TileWidth = 55.0
+            TileHeight  = 55.0
+            BasketSize  = 55.0
+            ObstacleWidth = 50.0
+            ObstacleHeight = 10.0
+            BallSize = 22.0
+            PhysicBodyBasketOffset = -50.0
+            DeskOffset = -20.0
+            TilesOffset = -25.0
+            BallPhBodyOffset = -4.0
+            BallImpulseDx = -1.3
+            
+        default:
+            TileWidth = 55.0
+            TileHeight  = 55.0
+            BasketSize  = 55.0
+            ObstacleWidth = 50.0
+            ObstacleHeight = 10.0
+            BallSize = 22.0
+            PhysicBodyBasketOffset = -50.0
+            DeskOffset = -20.0
+            TilesOffset = -25.0
+            BallPhBodyOffset = -4.0
+            BallImpulseDx = -1.3
+
+            print("not an iPhone")
+            
+        }
+    }
+        
     override init(size: CGSize) {
         var textures:[SKTexture] = []
         for i in 1...4 {
@@ -70,7 +144,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let desk = SKSpriteNode(imageNamed: "desk")
         desk.position = CGPoint(x: 0, y: DeskOffset)
         desk.size = size
-        addChild(desk)
+        //addChild(desk)
         addChild(gameLayer)
         
         let border  = SKPhysicsBody(edgeLoopFrom: self.frame)
@@ -300,9 +374,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     
     func convertPointForBasket(point: CGPoint) -> (success: Bool, column: Int, row: Int) {
+        print()
+        print(point)
         let pointObsLayer = basketsLayer.convert(point, to: obstaclesLayer)
+        print(pointObsLayer)
         let pointObsLayerU = basketsLayer.convert(point, to: obstaclesLayerUpper)
+        print(pointObsLayerU)
         let pointBskLayerU = basketsLayer.convert(point, to: basketsLayerUpper)
+         print(pointBskLayerU)
         if point.x >= 0 && point.y >= 0 && pointBskLayerU.x <= 0 && pointBskLayerU.y <= 0 && (((pointObsLayer.y <= 0 && pointObsLayer.x >= 0) || (pointObsLayer.x <= 0 && pointObsLayer.y >= 0)) || ((pointObsLayerU.x >= 0 && pointBskLayerU.y <= 0) || (pointObsLayerU.y >= 0 && pointBskLayerU.x <= 0))) {
             return (true, Int(point.x / TileWidth), Int(point.y / TileHeight))
         } else {

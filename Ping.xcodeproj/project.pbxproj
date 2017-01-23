@@ -25,6 +25,7 @@
 		D321EBEF1DCA2D3F00E50A4F /* Level_4.json in Resources */ = {isa = PBXBuildFile; fileRef = D321EBEA1DCA2D3F00E50A4F /* Level_4.json */; };
 		D321EBF11DCA2D6900E50A4F /* Exntensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321EBF01DCA2D6900E50A4F /* Exntensions.swift */; };
 		D321EBF31DCA2EFE00E50A4F /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321EBF21DCA2EFE00E50A4F /* Obstacle.swift */; };
+		D36CDA6B1E360A1900DCD92B /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CDA6A1E360A1900DCD92B /* ShopViewController.swift */; };
 		D3D1DBA41DD74AA7003AB527 /* Basket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D1DBA31DD74AA7003AB527 /* Basket.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		D321EBEA1DCA2D3F00E50A4F /* Level_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_4.json; sourceTree = "<group>"; };
 		D321EBF01DCA2D6900E50A4F /* Exntensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Exntensions.swift; path = ../Exntensions.swift; sourceTree = "<group>"; };
 		D321EBF21DCA2EFE00E50A4F /* Obstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
+		D36CDA6A1E360A1900DCD92B /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = SOURCE_ROOT; };
 		D3D1DBA31DD74AA7003AB527 /* Basket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Basket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +93,7 @@
 				D3D1DBA31DD74AA7003AB527 /* Basket.swift */,
 				D321EBBA1DC9E49400E50A4F /* GameViewController.swift */,
 				D321EBBC1DC9E49400E50A4F /* Main.storyboard */,
+				D36CDA6A1E360A1900DCD92B /* ShopViewController.swift */,
 				D321EBBF1DC9E49400E50A4F /* Assets.xcassets */,
 				D321EBD91DCA17D500E50A4F /* Tile.swift */,
 				D321EBF21DCA2EFE00E50A4F /* Obstacle.swift */,
@@ -146,6 +149,7 @@
 				TargetAttributes = {
 					D321EBAE1DC9E49400E50A4F = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 83H63AD9J8;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -195,6 +199,7 @@
 			files = (
 				D321EBE21DCA1F9600E50A4F /* Level.swift in Sources */,
 				D321EBF11DCA2D6900E50A4F /* Exntensions.swift in Sources */,
+				D36CDA6B1E360A1900DCD92B /* ShopViewController.swift in Sources */,
 				D321EBB91DC9E49400E50A4F /* GameScene.swift in Sources */,
 				D321EBBB1DC9E49400E50A4F /* GameViewController.swift in Sources */,
 				D321EBB31DC9E49400E50A4F /* AppDelegate.swift in Sources */,
@@ -322,11 +327,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 83H63AD9J8;
 				INFOPLIST_FILE = Ping/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.galkina.Ping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -334,11 +342,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 83H63AD9J8;
 				INFOPLIST_FILE = Ping/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.galkina.Ping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
