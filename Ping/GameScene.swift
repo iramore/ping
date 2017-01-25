@@ -51,80 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder) is not used in this app")
     }
-    func initSizes(){
-        let screenSize = UIScreen.main.bounds
-        print(screenSize.width)
-        switch screenSize.width {
-        case 480.0:
-            print("iPhone 3,4")
-            TileWidth = 35.0
-            TileHeight  = 35.0
-            BasketSize  = 35.0
-            ObstacleWidth = 35.0
-            ObstacleHeight = 6.0
-            BallSize = 16.0
-            PhysicBodyBasketOffset = -30.0
-            DeskOffset = -20.0
-            TilesOffset = -25.0
-            BallPhBodyOffset = -2.0
-            BallImpulseDx = -1.0
-        case 568.0:
-            print("iPhone 5")
-            TileWidth = 40.0
-            TileHeight  = 40.0
-            BasketSize  = 40.0
-            ObstacleWidth = 35.0
-            ObstacleHeight = 8.0
-            BallSize = 18.0
-            PhysicBodyBasketOffset = -32.0
-            DeskOffset = -20.0
-            TilesOffset = -25.0
-            BallPhBodyOffset = -2.0
-            BallImpulseDx = -1.2
-        case 667.0:
-            print("iPhone 6")
-            TileWidth = 50.0
-            TileHeight  = 50.0
-            BasketSize  = 50.0
-            ObstacleWidth = 45.0
-            ObstacleHeight = 9.0
-            BallSize = 21.0
-            PhysicBodyBasketOffset = -42.0
-            DeskOffset = -20.0
-            TilesOffset = -25.0
-            BallPhBodyOffset = -3.0
-            BallImpulseDx = -1.2
-        case 736.0:
-            print("iPhone 6+")
-            TileWidth = 55.0
-            TileHeight  = 55.0
-            BasketSize  = 55.0
-            ObstacleWidth = 50.0
-            ObstacleHeight = 10.0
-            BallSize = 22.0
-            PhysicBodyBasketOffset = -50.0
-            DeskOffset = -20.0
-            TilesOffset = -25.0
-            BallPhBodyOffset = -4.0
-            BallImpulseDx = -1.3
-            
-        default:
-            TileWidth = 55.0
-            TileHeight  = 55.0
-            BasketSize  = 55.0
-            ObstacleWidth = 50.0
-            ObstacleHeight = 10.0
-            BallSize = 22.0
-            PhysicBodyBasketOffset = -50.0
-            DeskOffset = -20.0
-            TilesOffset = -25.0
-            BallPhBodyOffset = -4.0
-            BallImpulseDx = -1.3
-
-            print("not an iPhone")
-            
-        }
-    }
+   
         
     override init(size: CGSize) {
         var textures:[SKTexture] = []
@@ -154,6 +81,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.physicsBody = border
         self.physicsWorld.contactDelegate = self
+        print(TileWidth)
     }
     
     func addTilesAndObstacles(){
@@ -387,8 +315,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else {
             return (false, 0, 0)
         }
-        
-        
     }
     
     func pointFor(column: Int, row: Int) -> CGPoint {
@@ -441,11 +367,86 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         selectedBasket = Basket(column: result.column,row: result.row)
                         startBallAnimation()
                         unhideObstacles()
-                        
                     }
                 }
                 
             }
+        }
+    }
+    
+    
+    func initSizes(){
+        let screenSize = UIScreen.main.bounds
+        print(screenSize.width)
+        switch screenSize.width {
+        case 480.0:
+            print("iPhone 3,4")
+            TileWidth = 35.0
+            TileHeight  = 35.0
+            BasketSize  = 35.0
+            ObstacleWidth = 35.0
+            ObstacleHeight = 6.0
+            BallSize = 16.0
+            PhysicBodyBasketOffset = -30.0
+            DeskOffset = -20.0
+            TilesOffset = -25.0
+            BallPhBodyOffset = -2.0
+            BallImpulseDx = -1.0
+        case 568.0:
+            print("iPhone 5")
+            TileWidth = 40.0
+            TileHeight  = 40.0
+            BasketSize  = 40.0
+            ObstacleWidth = 35.0
+            ObstacleHeight = 8.0
+            BallSize = 18.0
+            PhysicBodyBasketOffset = -32.0
+            DeskOffset = -20.0
+            TilesOffset = -25.0
+            BallPhBodyOffset = -2.0
+            BallImpulseDx = -1.2
+        case 667.0:
+            print("iPhone 6")
+            TileWidth = 50.0
+            TileHeight  = 50.0
+            BasketSize  = 50.0
+            ObstacleWidth = 45.0
+            ObstacleHeight = 9.0
+            BallSize = 21.0
+            PhysicBodyBasketOffset = -42.0
+            DeskOffset = -20.0
+            TilesOffset = -25.0
+            BallPhBodyOffset = -3.0
+            BallImpulseDx = -1.2
+        case 736.0:
+            print("iPhone 6+")
+            TileWidth = 55.0
+            TileHeight  = 55.0
+            BasketSize  = 55.0
+            ObstacleWidth = 50.0
+            ObstacleHeight = 10.0
+            BallSize = 22.0
+            PhysicBodyBasketOffset = -50.0
+            DeskOffset = -20.0
+            TilesOffset = -25.0
+            BallPhBodyOffset = -4.0
+            BallImpulseDx = -1.3
+            
+        default:
+            TileWidth = 55.0
+            TileHeight  = 55.0
+            BasketSize  = 55.0
+            ObstacleWidth = 50.0
+            ObstacleHeight = 10.0
+            BallSize = 22.0
+            PhysicBodyBasketOffset = -50.0
+            DeskOffset = -20.0
+            TilesOffset = -25.0
+            BallPhBodyOffset = -4.0
+            BallImpulseDx = -1.3
+            
+            print("not an iPhone")
+            
         }
     }
 }
