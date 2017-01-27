@@ -10,8 +10,9 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController, winLoseDelegate {
+class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegate {
    
+    @IBOutlet weak var shopBtn: UIButton!
 
     var scene: GameScene!
     var level: Level!
@@ -30,6 +31,7 @@ class GameViewController: UIViewController, winLoseDelegate {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+
     
     override var shouldAutorotate: Bool {
         return true
@@ -39,6 +41,10 @@ class GameViewController: UIViewController, winLoseDelegate {
         return [.landscape]
     }
     
+    
+    func themeChanged(){
+        setupLevel(currentLevelNum)
+    }
     internal func gameActionCompleted(result: Bool) {
         updateLabels()
         
@@ -62,6 +68,11 @@ class GameViewController: UIViewController, winLoseDelegate {
         timer.invalidate()
         counter = timeToRemember
         timer  = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.timerAction), userInfo: nil, repeats: true)
+        let theme = ThemeManager.currentTheme().string
+        if let image = UIImage(named: "\(theme)_face_for_shop") {
+            shopBtn.setImage(image, for: .normal)
+        }
+        
         
     }
     
@@ -83,6 +94,7 @@ class GameViewController: UIViewController, winLoseDelegate {
     }
     
     func setupLevel(_ levelNum: Int) {
+        
         let skView = view as! SKView
         skView.isMultipleTouchEnabled = false
         skView.showsFPS = true
@@ -99,15 +111,19 @@ class GameViewController: UIViewController, winLoseDelegate {
         skView.presentScene(scene)
         winLoseImageBack.isHidden = true
         winLoseLabel.isHidden = true
+       
         
         // Start the game.
         beginGame()
+        
     }
 
 
     
     override func viewDidLoad() {
+       
         super.viewDidLoad()
+        
         setupLevel(currentLevelNum)
         
     }
@@ -132,5 +148,13 @@ class GameViewController: UIViewController, winLoseDelegate {
         scene.isUserInteractionEnabled = true
         
         setupLevel(currentLevelNum)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare")
+        let destinationNavigationController = segue.destination as! UINavigationController
+        let targetController = destinationNavigationController.topViewController as! ShopCollectionViewController
+        
+       targetController.themeChanged = self
+        
     }
 }

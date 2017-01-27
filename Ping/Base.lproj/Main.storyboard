@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,16 +39,6 @@
                                 <color key="textColor" red="1" green="0.99912493820290693" blue="0.98691485951571123" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bs2-N1-hul">
-                                <rect key="frame" x="565" y="6" width="90" height="90"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Bs2-N1-hul" secondAttribute="height" multiplier="1:1" id="n7c-g9-t4n"/>
-                                </constraints>
-                                <state key="normal" image="face_for_shop"/>
-                                <connections>
-                                    <segue destination="7wj-pp-v1g" kind="show" id="ZQZ-8W-cuj"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="win_lose_back" translatesAutoresizingMaskIntoConstraints="NO" id="srJ-95-Gwr">
                                 <rect key="frame" x="175" y="93" width="317" height="188"/>
                                 <constraints>
@@ -63,6 +54,15 @@
                                 <color key="textColor" red="0.98406940698623657" green="0.99268060922622681" blue="0.96762186288833618" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bs2-N1-hul">
+                                <rect key="frame" x="565" y="6" width="90" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Bs2-N1-hul" secondAttribute="height" multiplier="1:1" id="n7c-g9-t4n"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="7wj-pp-v1g" kind="show" identifier="shopSegue" id="ZQZ-8W-cuj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -77,18 +77,20 @@
                             <constraint firstItem="UJx-nu-sYB" firstAttribute="centerX" secondItem="srJ-95-Gwr" secondAttribute="centerX" id="zNG-r7-zvv"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="aMg-2W-dIz"/>
                     <connections>
                         <outlet property="levelLbl" destination="HHZ-Qz-3FG" id="bg3-kk-YZM"/>
                         <outlet property="scoreLbl" destination="0MX-do-QX7" id="UjA-u8-AsQ"/>
+                        <outlet property="shopBtn" destination="Bs2-N1-hul" id="4Bj-fv-oB4"/>
                         <outlet property="winLoseImageBack" destination="srJ-95-Gwr" id="udk-F5-ZMG"/>
                         <outlet property="winLoseLabel" destination="UJx-nu-sYB" id="gLC-Gi-Ex1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-484" y="-695"/>
+            <point key="canvasLocation" x="306.29685157421289" y="-695.20000000000005"/>
         </scene>
-        <!--Shop Collection View Controller-->
+        <!--Pets shop-->
         <scene sceneID="6ON-sn-3gK">
             <objects>
                 <collectionViewController id="WyH-2X-9dL" customClass="ShopCollectionViewController" customModule="Ping" customModuleProvider="target" sceneMemberID="viewController">
@@ -97,33 +99,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mgJ-F5-t8w">
-                            <size key="itemSize" width="50" height="50"/>
+                            <size key="itemSize" width="117" height="116"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="mJI-TW-38B" customClass="ShopCollectionViewCell" customModule="Ping" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="117" height="116"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="117" height="116"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IB3-fL-5A3">
-                                            <rect key="frame" x="4" y="15" width="42" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Aoo-AS-bTD">
+                                            <rect key="frame" x="0.0" y="0.0" width="117" height="116"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEP-IT-Ap4">
+                                            <rect key="frame" x="17" y="76.5" width="84" height="31.5"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="23"/>
+                                            <color key="textColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="IB3-fL-5A3" firstAttribute="centerY" secondItem="mJI-TW-38B" secondAttribute="centerY" id="0i8-am-8fX"/>
-                                    <constraint firstItem="IB3-fL-5A3" firstAttribute="centerX" secondItem="mJI-TW-38B" secondAttribute="centerX" id="PDb-oG-XCu"/>
+                                    <constraint firstItem="bEP-IT-Ap4" firstAttribute="centerX" secondItem="mJI-TW-38B" secondAttribute="centerX" id="25b-H4-s0C"/>
+                                    <constraint firstItem="Aoo-AS-bTD" firstAttribute="top" secondItem="mJI-TW-38B" secondAttribute="top" id="44B-ct-NxK"/>
+                                    <constraint firstAttribute="bottom" secondItem="Aoo-AS-bTD" secondAttribute="bottom" id="9Lz-M7-LtS"/>
+                                    <constraint firstItem="bEP-IT-Ap4" firstAttribute="centerX" secondItem="Aoo-AS-bTD" secondAttribute="centerX" id="BdR-w3-zaL"/>
+                                    <constraint firstItem="bEP-IT-Ap4" firstAttribute="bottom" secondItem="mJI-TW-38B" secondAttribute="bottomMargin" id="OwQ-DQ-Qh3"/>
+                                    <constraint firstItem="Aoo-AS-bTD" firstAttribute="leading" secondItem="mJI-TW-38B" secondAttribute="leading" id="cTu-Kc-gPu"/>
+                                    <constraint firstItem="bEP-IT-Ap4" firstAttribute="leading" secondItem="mJI-TW-38B" secondAttribute="leadingMargin" constant="9" id="q1T-fF-2tu"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="myLabel" destination="IB3-fL-5A3" id="qtp-xY-0zB"/>
+                                    <outlet property="label" destination="bEP-IT-Ap4" id="NS4-Oa-775"/>
+                                    <outlet property="pet" destination="Aoo-AS-bTD" id="BJC-ec-iKi"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -132,19 +143,23 @@
                             <outlet property="delegate" destination="WyH-2X-9dL" id="NjZ-sw-lpG"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="kJ0-dw-iLE"/>
+                    <navigationItem key="navigationItem" title="Pets shop" id="kJ0-dw-iLE">
+                        <barButtonItem key="backBarButtonItem" title="  lala" id="SId-nM-CU4"/>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sXk-2B-f3a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1141" y="-695"/>
+            <point key="canvasLocation" x="1930.8845577211396" y="-695.20000000000005"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jFC-ME-tqu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7wj-pp-v1g" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="667" height="375"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uo5-Bj-87s">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="144"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -154,11 +169,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uaC-zo-CUm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="254" y="-695"/>
+            <point key="canvasLocation" x="1043.9280359820091" y="-695.20000000000005"/>
         </scene>
     </scenes>
     <resources>
-        <image name="face_for_shop" width="224" height="226"/>
         <image name="win_lose_back" width="846" height="491"/>
     </resources>
 </document>

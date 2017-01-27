@@ -7,7 +7,11 @@
 //
 
 import UIKit
+
+
+
 class ShopCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var myLabel: UILabel!
+    @IBOutlet weak var pet: UIImageView!
+    @IBOutlet weak var label: UILabel!
 }

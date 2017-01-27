@@ -11,7 +11,9 @@ import UIKit
 let SelectedThemeKey = "SelectedTheme"
 
 enum ThemeAnimal: Int{
-    case koala, crab
+    case koala = 0, crab
+    
+    static var count: Int { return ThemeAnimal.crab.hashValue + 1}
     
     
     var prefix: String{
@@ -21,6 +23,10 @@ enum ThemeAnimal: Int{
         case .koala:
             return "koala"
         }
+    }
+    
+    var string: String {
+        return String(describing: self)
     }
 }
 

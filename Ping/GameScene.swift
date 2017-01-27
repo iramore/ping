@@ -47,6 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var testBall = SKSpriteNode(imageNamed: "ball")
     var ballAnimation: SKAction
     var touchable = false
+    var theme: String
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder) is not used in this app")
@@ -54,18 +55,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
    
         
     override init(size: CGSize) {
+        theme = ThemeManager.currentTheme().string
         var textures:[SKTexture] = []
         for i in 1...4 {
-            textures.append(SKTexture(imageNamed: "face\(i)"))
+            textures.append(SKTexture(imageNamed: "\(theme)_face\(i)"))
         }
         ballAnimation = SKAction.animate(with: textures,
                                          timePerFrame: 0.1)
         ball = SKSpriteNode(color: UIColor.blue, size: CGSize(width: BallSize,height:  BallSize))
-        let ballTexture = SKTexture(imageNamed: "face1")
+        let ballTexture = SKTexture(imageNamed: "\(theme)_face1")
         ball.texture = ballTexture
+        
         super.init(size: size)
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        let background = SKSpriteNode(imageNamed: "background")
+        let background = SKSpriteNode(imageNamed: "\(theme)_back")
         background.size = size
         addChild(background)
         let desk = SKSpriteNode(imageNamed: "desk")
@@ -109,7 +112,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addSprites(for obstacles: [Obstacle]) {
         for obstacle in obstacles {
-            let texture = SKTexture(imageNamed: "gorizontal")
+            let texture = SKTexture(imageNamed: "\(theme)_obs")
             let sprite = SKSpriteNode(color: UIColor.blue, size: CGSize(width: ObstacleWidth,height:  ObstacleHeight))
             sprite.texture = texture
             sprite.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sprite.size.width,                                                                   height: sprite.size.height))
