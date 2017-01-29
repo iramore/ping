@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
-    <device id="retina4_7" orientation="landscape">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -20,7 +20,7 @@
                         <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
                     </layoutGuides>
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="HHZ-Qz-3FG">
@@ -40,22 +40,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="win_lose_back" translatesAutoresizingMaskIntoConstraints="NO" id="srJ-95-Gwr">
-                                <rect key="frame" x="175" y="93" width="317" height="188"/>
+                                <rect key="frame" x="22" y="180" width="331" height="306"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="srJ-95-Gwr" secondAttribute="height" multiplier="317:188" id="fOG-bm-dvk"/>
+                                    <constraint firstAttribute="width" secondItem="srJ-95-Gwr" secondAttribute="height" multiplier="331:306" id="aCF-T8-8FW"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJx-nu-sYB">
-                                <rect key="frame" x="273" y="167" width="120" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="UJx-nu-sYB" secondAttribute="height" multiplier="3:1" id="bhd-Nh-tw8"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="24"/>
-                                <color key="textColor" red="0.98406940698623657" green="0.99268060922622681" blue="0.96762186288833618" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bs2-N1-hul">
-                                <rect key="frame" x="565" y="6" width="90" height="90"/>
+                                <rect key="frame" x="271" y="6" width="92" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Bs2-N1-hul" secondAttribute="height" multiplier="1:1" id="n7c-g9-t4n"/>
                                 </constraints>
@@ -63,18 +54,27 @@
                                     <segue destination="7wj-pp-v1g" kind="show" identifier="shopSegue" id="ZQZ-8W-cuj"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJx-nu-sYB">
+                                <rect key="frame" x="107.5" y="307" width="160" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="UJx-nu-sYB" secondAttribute="height" multiplier="3:1" id="bhd-Nh-tw8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="24"/>
+                                <color key="textColor" red="0.98406940698623657" green="0.99268060922622681" blue="0.96762186288833618" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="srJ-95-Gwr" firstAttribute="width" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="317:375" id="5VS-oe-70z"/>
-                            <constraint firstItem="UJx-nu-sYB" firstAttribute="centerY" secondItem="srJ-95-Gwr" secondAttribute="centerY" id="EqZ-nv-ymm"/>
-                            <constraint firstItem="srJ-95-Gwr" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="Eqd-2A-aec"/>
+                            <constraint firstItem="srJ-95-Gwr" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="77l-1S-MWV"/>
+                            <constraint firstItem="srJ-95-Gwr" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="E7i-Dc-dl4"/>
+                            <constraint firstItem="srJ-95-Gwr" firstAttribute="width" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="331:667" id="EAH-3m-DPb"/>
                             <constraint firstAttribute="trailing" secondItem="Bs2-N1-hul" secondAttribute="trailing" constant="12" id="MJ0-6H-G12"/>
-                            <constraint firstItem="Bs2-N1-hul" firstAttribute="width" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="18:75" id="Me0-2n-Jwn"/>
-                            <constraint firstItem="srJ-95-Gwr" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="evs-Bj-NFf"/>
-                            <constraint firstItem="UJx-nu-sYB" firstAttribute="width" secondItem="srJ-95-Gwr" secondAttribute="height" multiplier="30:47" id="n6y-u7-sCo"/>
+                            <constraint firstItem="Bs2-N1-hul" firstAttribute="width" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="4:29" id="Y0a-oj-HD1"/>
+                            <constraint firstItem="UJx-nu-sYB" firstAttribute="centerX" secondItem="srJ-95-Gwr" secondAttribute="centerX" id="blP-JT-Eov"/>
+                            <constraint firstItem="UJx-nu-sYB" firstAttribute="centerY" secondItem="srJ-95-Gwr" secondAttribute="centerY" id="vYn-sH-E4f"/>
                             <constraint firstItem="Bs2-N1-hul" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" constant="6" id="wwj-Tq-CE1"/>
-                            <constraint firstItem="UJx-nu-sYB" firstAttribute="centerX" secondItem="srJ-95-Gwr" secondAttribute="centerX" id="zNG-r7-zvv"/>
+                            <constraint firstItem="UJx-nu-sYB" firstAttribute="width" secondItem="srJ-95-Gwr" secondAttribute="height" multiplier="80:153" id="yNL-xr-BYH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="aMg-2W-dIz"/>
@@ -88,7 +88,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="306.29685157421289" y="-695.20000000000005"/>
+            <point key="canvasLocation" x="-156" y="-696.7016491754124"/>
         </scene>
         <!--Pets shop-->
         <scene sceneID="6ON-sn-3gK">
@@ -149,7 +149,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sXk-2B-f3a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1930.8845577211396" y="-695.20000000000005"/>
+            <point key="canvasLocation" x="2295" y="-741"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jFC-ME-tqu">
@@ -169,7 +169,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uaC-zo-CUm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1043.9280359820091" y="-695.20000000000005"/>
+            <point key="canvasLocation" x="825" y="-696"/>
         </scene>
     </scenes>
     <resources>

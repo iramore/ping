@@ -19,7 +19,7 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
     var timer = Timer()
     let timeToRemember = 3
     var counter : Int?
-    var currentLevelNum = 2
+    var currentLevelNum = 0
     var score = 0
     var tapGestureRecognizer: UITapGestureRecognizer!
     
@@ -34,11 +34,11 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
 
     
     override var shouldAutorotate: Bool {
-        return true
+        return false
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return [.landscape]
+        return [.portrait]
     }
     
     
@@ -72,8 +72,6 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
         if let image = UIImage(named: "\(theme)_face_for_shop") {
             shopBtn.setImage(image, for: .normal)
         }
-        
-        
     }
     
     func timerAction(){
@@ -111,9 +109,6 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
         skView.presentScene(scene)
         winLoseImageBack.isHidden = true
         winLoseLabel.isHidden = true
-       
-        
-        // Start the game.
         beginGame()
         
     }
@@ -150,10 +145,8 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
         setupLevel(currentLevelNum)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("prepare")
         let destinationNavigationController = segue.destination as! UINavigationController
         let targetController = destinationNavigationController.topViewController as! ShopCollectionViewController
-        
        targetController.themeChanged = self
         
     }

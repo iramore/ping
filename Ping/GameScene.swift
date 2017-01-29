@@ -238,7 +238,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let firstBody = contact.bodyA
         let secondBody = contact.bodyB
         
-        if firstBody.categoryBitMask == PhysicsCatagory.Ball && secondBody.categoryBitMask == PhysicsCatagory.Basket{
+        if firstBody.categoryBitMask == PhysicsCatagory.Ball && secondBody.categoryBitMask == PhysicsCatagory.Basket &&  firstBody.node?.parent != nil {
             let pointBall = CGPoint(x: ball.position.x, y: ball.position.y)
             let pointBallBsk = obstaclesLayer.convert(pointBall, to: basketsLayer)
             let result = convertPointForBasket(point: pointBallBsk)
@@ -249,7 +249,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     //basket.sprite.size = CGSize(width: TileWidth, height: TileHeight)
                     basket.sprite!.run(SKAction.setTexture(texture))
                     if basket == selectedBasket {
-                         print("WIN")
+                         print("WIN1")
                         delegateWinLose?.gameActionCompleted(result: true)
                        
                     } else{
@@ -259,12 +259,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
 
                 }
+                firstBody.node?.removeFromParent()
             }
-            firstBody.node?.removeFromParent()
+            
             
             
         }
-        else if firstBody.categoryBitMask == PhysicsCatagory.Basket && secondBody.categoryBitMask == PhysicsCatagory.Ball {
+        else if firstBody.categoryBitMask == PhysicsCatagory.Basket && secondBody.categoryBitMask == PhysicsCatagory.Ball &&  secondBody.node?.parent != nil {
             let pointBall = CGPoint(x: ball.position.x, y: ball.position.y)
             let pointBallBsk = obstaclesLayer.convert(pointBall, to: basketsLayer)
             let result = convertPointForBasket(point: pointBallBsk)
@@ -275,7 +276,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     //basket.sprite.size = CGSize(width: TileWidth, height: TileHeight)
                     basket.sprite!.run(SKAction.setTexture(texture))
                     if basket == selectedBasket {
-                         print("WIN")
+                         print("WIN2")
                         delegateWinLose?.gameActionCompleted(result: true)
                         
                     } else{
@@ -284,8 +285,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                             }
                     
                 }
+                secondBody.node?.removeFromParent()
             }
-            secondBody.node?.removeFromParent()
+            
         }
     }
     
@@ -380,8 +382,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func initSizes(){
         let screenSize = UIScreen.main.bounds
-        print(screenSize.width)
-        switch screenSize.width {
+       
+        switch screenSize.height {
         case 480.0:
             print("iPhone 3,4")
             TileWidth = 35.0
