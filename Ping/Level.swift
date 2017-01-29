@@ -13,7 +13,6 @@ let NumLevels = 4
 
 class Level {
     
-    let overSizeConst = 89
     
     
     
@@ -59,22 +58,12 @@ class Level {
         
         for (index,strPoint) in start.enumerated(){
             if index == 0 {
-                if(strPoint == overSizeConst){
-                    startRow = numRows!
-                } else{
-                    startRow = strPoint
-                }
+                startRow = strPoint
             }
             if index == 1{
-                if(strPoint == overSizeConst){
-                    startColumn = numColumns!
-                } else{
-                    startColumn = strPoint
-                }
+                startColumn = strPoint
             }
         }
-        
-        print("start row \(startRow) start column \(startColumn)" )
         
         for (row, rowArray) in tilesArray.enumerated() {
             let tileRow = numRows! - row - 1
@@ -136,11 +125,6 @@ class Level {
                     list.append(basket)
                 }
                 if row == numRows!+1 && column != 0 && column != numColumns!+1 {
-                    let basket = Basket(column: column, row: row)
-                    baskets?[column, row] = basket
-                    list.append(basket)
-                }
-                if row == 0 && column != 0 && column != numColumns!+1 {
                     let basket = Basket(column: column, row: row)
                     baskets?[column, row] = basket
                     list.append(basket)

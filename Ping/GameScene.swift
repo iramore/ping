@@ -33,7 +33,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var DeskOffset: CGFloat = -20.0
     var TilesOffset: CGFloat = -25.0
     var BallPhBodyOffset: CGFloat = -2.0
-    var BallImpulseDx: CGFloat = -1.2
+    var BallImpulseDx: CGFloat = 1.2
+    var BallImpulseDy: CGFloat = 1.2
     
     let gameLayer = SKNode()
     let obstaclesLayer = SKNode()
@@ -48,6 +49,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var ballAnimation: SKAction
     var touchable = false
     var theme: String
+    var startImageName = "start-left"
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder) is not used in this app")
@@ -84,7 +86,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.physicsBody = border
         self.physicsWorld.contactDelegate = self
-        print(TileWidth)
     }
     
     func addTilesAndObstacles(){
@@ -156,7 +157,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addBasckets(for baskets: [Basket]){
         
         for basket in baskets{
-            //if basket.column! != level.startColumn! || basket.row! != level.startRow! {
                 let point = pointForBasket(column: basket.column!, row: basket.row!)
                 let texture = SKTexture(imageNamed: "bascket")
                 let backetNode = SKSpriteNode(color: UIColor.blue, size: CGSize(width: BasketSize,height:  BasketSize))
@@ -165,7 +165,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 setPhysicBodyForBasketNode(node: backetNode)
                 basketsLayer.addChild(backetNode)
                 basket.sprite = backetNode
-            //}
         }
         
         
@@ -174,9 +173,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addStart(){
         let basket = level.basketAt(column: level.startColumn!, row: level.startRow!)
         basket?.sprite?.removeFromParent()
-        let point = pointForBasket(column: level.startColumn!, row: level.startRow!)
-        let texture = SKTexture(imageNamed: "start")
-        let startNode = SKSpriteNode(texture: texture)
+       let point = pointForBasket(column: level.startColumn!, row: level.startRow!)
+        let texture = SKTexture(imageNamed: startImageName)
+        let startNode = SKSpriteNode(color: UIColor.blue, size: CGSize(width: BasketSize,height:  BasketSize))
+        startNode.texture = texture
         startNode.position = point
         basketsLayer.addChild(startNode)
     }
@@ -228,7 +228,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         ball.physicsBody?.allowsRotation = false
         ball.physicsBody?.pinned = false
-        ball.position = pointForBasket(column: level.startColumn!-1, row: level.startRow!-1)
+        ball.position = pointFor(column: level.startColumn!-1, row: level.startRow!-1)
         ball.position = CGPoint(x: ball.position.x, y: ball.position.y)
         ball.physicsBody?.affectedByGravity=false
         obstaclesLayer.addChild(ball)
@@ -249,15 +249,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     //basket.sprite.size = CGSize(width: TileWidth, height: TileHeight)
                     basket.sprite!.run(SKAction.setTexture(texture))
                     if basket == selectedBasket {
-                         print("WIN1")
+                        print("WIN1")
                         delegateWinLose?.gameActionCompleted(result: true)
-                       
                     } else{
                         print("LOSE")
                         delegateWinLose?.gameActionCompleted(result: false)
-                        
                     }
-
                 }
                 firstBody.node?.removeFromParent()
             }
@@ -282,8 +279,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     } else{
                         print("LOSE")
                         delegateWinLose?.gameActionCompleted(result: false)
-                                            }
-                    
+                    }
                 }
                 secondBody.node?.removeFromParent()
             }
@@ -368,7 +364,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if let basket = level.basketAt(column: result.column, row: result.row) {
                         let texture = SKTexture(imageNamed: "selected_basket")
                         basket.sprite!.run(SKAction.setTexture(texture))
-                        ball.physicsBody?.applyImpulse(CGVector(dx: BallImpulseDx, dy: 0))
+                        ball.physicsBody?.applyImpulse(CGVector(dx: BallImpulseDx, dy: BallImpulseDy))
                         selectedBasket = Basket(column: result.column,row: result.row)
                         startBallAnimation()
                         unhideObstacles()
@@ -376,6 +372,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
             }
+        }
+    }
+    
+    func updateImpulse(){
+        if level.startRow! == 0 {
+            BallImpulseDx *= 0
+            startImageName = "start_up"
+        }
+        if level.startRow! == level.numRows!+1 {
+            BallImpulseDy *= -1
+            BallImpulseDx *= 0
+            startImageName = "start_down"
+        }
+        if level.startColumn! == 0{
+            BallImpulseDy *= 0
+            startImageName = "start_right"
+        }
+        if level.startColumn! == level.numColumns! + 1{
+            BallImpulseDy *= 0
+            BallImpulseDx *= -1
+            startImageName = "start_left"
         }
     }
     
@@ -396,7 +413,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             DeskOffset = -20.0
             TilesOffset = -25.0
             BallPhBodyOffset = -2.0
-            BallImpulseDx = -1.0
+            BallImpulseDx = 1.0
+            BallImpulseDy = 1.0
         case 568.0:
             print("iPhone 5")
             TileWidth = 40.0
@@ -409,20 +427,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             DeskOffset = -20.0
             TilesOffset = -25.0
             BallPhBodyOffset = -2.0
-            BallImpulseDx = -1.2
+            BallImpulseDx = 1.2
+            BallImpulseDy = 1.2
         case 667.0:
             print("iPhone 6")
-            TileWidth = 50.0
-            TileHeight  = 50.0
-            BasketSize  = 50.0
-            ObstacleWidth = 45.0
+            TileWidth = 45.0
+            TileHeight  = 45.0
+            BasketSize  = 45.0
+            ObstacleWidth = 40.0
             ObstacleHeight = 9.0
             BallSize = 21.0
-            PhysicBodyBasketOffset = -42.0
+            PhysicBodyBasketOffset = -40.0
             DeskOffset = -20.0
             TilesOffset = -25.0
             BallPhBodyOffset = -3.0
-            BallImpulseDx = -1.2
+            BallImpulseDx = 1.2
+            BallImpulseDy = 1.2
         case 736.0:
             print("iPhone 6+")
             TileWidth = 55.0
@@ -435,8 +455,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             DeskOffset = -20.0
             TilesOffset = -25.0
             BallPhBodyOffset = -4.0
-            BallImpulseDx = -1.3
-            
+            BallImpulseDx = 1.3
+            BallImpulseDy = 1.3
         default:
             TileWidth = 55.0
             TileHeight  = 55.0
@@ -448,8 +468,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             DeskOffset = -20.0
             TilesOffset = -25.0
             BallPhBodyOffset = -4.0
-            BallImpulseDx = -1.3
-            
+            BallImpulseDx = 1.3
+            BallImpulseDy = 1.3
             print("not an iPhone")
             
         }

@@ -19,7 +19,7 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
     var timer = Timer()
     let timeToRemember = 3
     var counter : Int?
-    var currentLevelNum = 0
+    var currentLevelNum = 2
     var score = 0
     var tapGestureRecognizer: UITapGestureRecognizer!
     
@@ -80,6 +80,7 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
             timer.invalidate()
             scene.addStart()
             scene.addBall()
+           
             counter = timeToRemember
             scene.touchable = true
             scene.hideObstacles()
@@ -101,9 +102,11 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
         level = Level(filename: "Level_\(levelNum)")
         scene = GameScene(size: skView.bounds.size)
         scene.initSizes()
+        
         scene.delegateWinLose = self
         scene.level = level
         scene.addTilesAndObstacles()
+        scene.updateImpulse()
         scene.scaleMode = .aspectFill
         scene.addTiles()
         skView.presentScene(scene)
@@ -116,11 +119,8 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
 
     
     override func viewDidLoad() {
-       
         super.viewDidLoad()
-        
         setupLevel(currentLevelNum)
-        
     }
     
     func showGameOver() {
@@ -137,17 +137,14 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
     func hideGameOver() {
         view.removeGestureRecognizer(tapGestureRecognizer)
         tapGestureRecognizer = nil
-        
         winLoseImageBack.isHidden = true
         winLoseLabel.isHidden = true
         scene.isUserInteractionEnabled = true
-        
         setupLevel(currentLevelNum)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationNavigationController = segue.destination as! UINavigationController
         let targetController = destinationNavigationController.topViewController as! ShopCollectionViewController
        targetController.themeChanged = self
-        
     }
 }
