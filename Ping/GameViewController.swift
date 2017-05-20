@@ -19,7 +19,7 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
     var timer = Timer()
     let timeToRemember = 3
     var counter : Int?
-    var currentLevelNum = 2
+    var currentLevelNum = 1
     var score = 0
     var tapGestureRecognizer: UITapGestureRecognizer!
     
@@ -47,7 +47,6 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
     }
     internal func gameActionCompleted(result: Bool) {
         updateLabels()
-        
         if result {
             winLoseLabel.text = "Win"
             currentLevelNum = currentLevelNum < NumLevels ? currentLevelNum+1 : 1
@@ -99,7 +98,12 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
         skView.showsFPS = true
         skView.showsNodeCount = true
         skView.showsPhysics = true
-        level = Level(filename: "Level_\(levelNum)")
+        let maxVariant = LevelsNumberOfVariants[levelNum-1]
+        let randomNum:UInt32 = arc4random_uniform(UInt32(maxVariant))
+        //level = Level(filename: "Level_13")
+        let filename = "Level_\(levelNum)\(randomNum+1)"
+        //print(filename)
+        level = Level(filename: filename)
         scene = GameScene(size: skView.bounds.size)
         scene.initSizes()
         

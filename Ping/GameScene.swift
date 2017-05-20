@@ -65,12 +65,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ballAnimation = SKAction.animate(with: textures,
                                          timePerFrame: 0.1)
         ball = SKSpriteNode(color: UIColor.blue, size: CGSize(width: BallSize,height:  BallSize))
-        let ballTexture = SKTexture(imageNamed: "\(theme)_face1")
+        let ballTexture = SKTexture(imageNamed: "ball")
+        //let ballTexture = SKTexture(imageNamed: "\(theme)_face1")
         ball.texture = ballTexture
         
         super.init(size: size)
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        let background = SKSpriteNode(imageNamed: "\(theme)_back")
+        let background = SKSpriteNode(imageNamed: "back")
         background.size = size
         addChild(background)
         let desk = SKSpriteNode(imageNamed: "desk")
@@ -86,6 +87,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.physicsBody = border
         self.physicsWorld.contactDelegate = self
+        
     }
     
     func addTilesAndObstacles(){
@@ -113,7 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addSprites(for obstacles: [Obstacle]) {
         for obstacle in obstacles {
-            let texture = SKTexture(imageNamed: "\(theme)_obs")
+            let texture = SKTexture(imageNamed: "obs")
             let sprite = SKSpriteNode(color: UIColor.blue, size: CGSize(width: ObstacleWidth,height:  ObstacleHeight))
             sprite.texture = texture
             sprite.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sprite.size.width,                                                                   height: sprite.size.height))

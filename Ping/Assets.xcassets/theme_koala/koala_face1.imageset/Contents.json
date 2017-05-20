@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "koala_face.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "koala_face.png",
       "scale" : "2x"
     },
     {

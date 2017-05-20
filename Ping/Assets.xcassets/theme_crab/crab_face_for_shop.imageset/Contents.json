@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "crab_face_for_shop.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "крабпнг-2.png",
       "scale" : "2x"
     },
     {

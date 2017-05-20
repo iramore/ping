@@ -61,6 +61,9 @@ class ShopCollectionViewController: UICollectionViewController{
         UserDefaults.standard.setValue(indexPath.item, forKey: SelectedThemeKey)
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     
     
 }

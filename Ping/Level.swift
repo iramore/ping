@@ -8,7 +8,8 @@
 
 import Foundation
 
-let NumLevels = 4
+let NumLevels = 10
+let LevelsNumberOfVariants: [Int] = [4,4,6,6,8,6,8,8,9,10]
 
 
 class Level {
