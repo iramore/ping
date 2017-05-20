@@ -50,10 +50,10 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
         if result {
             winLoseLabel.text = "Win"
             currentLevelNum = currentLevelNum < NumLevels ? currentLevelNum+1 : 1
-            showGameOver()
+            showGameOver(win: true)
         } else  {
             winLoseLabel.text = "Lose"
-            showGameOver()
+            showGameOver(win: false)
         }
 
     }
@@ -127,7 +127,13 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
         setupLevel(currentLevelNum)
     }
     
-    func showGameOver() {
+    func showGameOver(win: Bool) {
+        if win{
+            winLoseImageBack.image = #imageLiteral(resourceName: "win_back")
+        } else{
+            winLoseImageBack.image = #imageLiteral(resourceName: "lose_back")
+            
+        }
         winLoseImageBack.isHidden = false
         winLoseLabel.isHidden = false
         scene.isUserInteractionEnabled = false
