@@ -68,6 +68,7 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
         counter = timeToRemember
         timer  = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.timerAction), userInfo: nil, repeats: true)
         let theme = ThemeManager.currentTheme().string
+        print(theme)
         if let image = UIImage(named: "\(theme)_face_for_shop") {
             shopBtn.setImage(image, for: .normal)
         }
@@ -153,8 +154,8 @@ class GameViewController: UIViewController, winLoseDelegate, themeChangedDelegat
         setupLevel(currentLevelNum)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationNavigationController = segue.destination as! UINavigationController
-        let targetController = destinationNavigationController.topViewController as! ShopCollectionViewController
-       targetController.themeChanged = self
+//        let destinationNavigationController = segue.destination as! UINavigationController
+//        let targetController = destinationNavigationController.topViewController as! ShopCollectionViewController
+//       targetController.themeChanged = self
     }
 }
