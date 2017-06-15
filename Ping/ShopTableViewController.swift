@@ -20,6 +20,7 @@ class ShopTableViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
     }
     @IBAction func closeButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
      func numberOfSections(in tableView: UITableView) -> Int {
