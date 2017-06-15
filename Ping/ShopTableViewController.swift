@@ -19,6 +19,8 @@ class ShopTableViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.dataSource = self
         tableView.delegate = self
     }
+    @IBAction func closeButtonPressed(_ sender: Any) {
+    }
     
      func numberOfSections(in tableView: UITableView) -> Int {
         return 1
