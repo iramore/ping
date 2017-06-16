@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "денежка.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "обезьяна.png",
       "scale" : "2x"
     },
     {

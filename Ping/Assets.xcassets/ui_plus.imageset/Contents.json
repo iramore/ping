@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "ui_кнопка.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "ui_кнопка.png",
       "scale" : "2x"
     },
     {

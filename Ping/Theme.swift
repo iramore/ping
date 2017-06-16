@@ -11,19 +11,15 @@ import UIKit
 let SelectedThemeKey = "SelectedTheme"
 
 enum ThemeAnimal: Int{
-    case koala = 0, crab, fox, parrot, unicorn, monkey, octopus, fish, duck
+    case  crab = 0, parrot, monkey, octopus, fish, duck,  unicorn
     
-    static var count: Int { return ThemeAnimal.duck.hashValue + 1}
+    static var count: Int { return ThemeAnimal.unicorn.hashValue + 1}
     
     
     var prefix: String{
         switch self {
         case .crab:
             return "crab"
-        case .koala:
-            return "koala"
-        case .fox:
-            return "fox"
         case .parrot:
             return "parrot"
         case .unicorn:
@@ -51,7 +47,7 @@ struct ThemeManager {
         if let storedTheme = (UserDefaults.standard.value(forKey: SelectedThemeKey) as AnyObject).integerValue {
             return ThemeAnimal(rawValue: storedTheme)!
         } else {
-            return .koala
+            return .crab
         }
     }
     

@@ -9,25 +9,33 @@
 import Foundation
 import UIKit
 
+protocol themeChangedDelegate: class {
+    func themeChanged()
+}
+
 class ShopTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     
     @IBOutlet weak var tableView: UITableView!
+    var themeChanged :themeChangedDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.layer.cornerRadius = 5
         tableView.dataSource = self
         tableView.delegate = self
     }
-    @IBAction func closeButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func backButtonPressed(_ sender: Any) {
+        themeChanged?.themeChanged()
+        self.dismiss(animated: true, completion: nil)
     }
-    
+   
      func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        themeChanged?.themeChanged()
         return ThemeAnimal.count
     }
     
@@ -44,5 +52,10 @@ class ShopTableViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        NSLog("You selected cell number: \(indexPath.row)!")
+        UserDefaults.standard.setValue(indexPath.row, forKey: SelectedThemeKey)
     }
 }

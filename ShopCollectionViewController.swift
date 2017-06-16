@@ -9,14 +9,14 @@
 import Foundation
 import UIKit
 
-protocol themeChangedDelegate: class {
-    func themeChanged()
-}
+//protocol themeChangedDelegate: class {
+//    func themeChanged()
+//}
 
 class ShopCollectionViewController: UICollectionViewController{
     let reuseIdentifier = "cell"
     
-     var themeChanged :themeChangedDelegate?
+     //var themeChanged :themeChangedDelegate?
    
     
     
@@ -32,7 +32,7 @@ class ShopCollectionViewController: UICollectionViewController{
     }
     
     func back() {
-        themeChanged?.themeChanged()
+        //themeChanged?.themeChanged()
         self.dismiss(animated: true, completion: nil);
     }
     
