@@ -74,9 +74,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let background = SKSpriteNode(imageNamed: "back")
         background.size = size
         addChild(background)
-        let desk = SKSpriteNode(imageNamed: "desk")
-        desk.position = CGPoint(x: 0, y: DeskOffset)
-        desk.size = size
+        //let desk = SKSpriteNode(imageNamed: "desk")
+        //desk.position = CGPoint(x: 0, y: DeskOffset)
+        //desk.size = size
         //addChild(desk)
         addChild(gameLayer)
         
@@ -239,6 +239,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         let firstBody = contact.bodyA
         let secondBody = contact.bodyB
+        print(firstBody.categoryBitMask)
+        print(secondBody.categoryBitMask)
+        print(firstBody.node?.parent)
+        print(secondBody.node?.parent)
         
         if firstBody.categoryBitMask == PhysicsCatagory.Ball && secondBody.categoryBitMask == PhysicsCatagory.Basket &&  firstBody.node?.parent != nil {
             let pointBall = CGPoint(x: ball.position.x, y: ball.position.y)
@@ -412,7 +416,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ObstacleHeight = 6.0
             BallSize = 16.0
             PhysicBodyBasketOffset = -30.0
-            DeskOffset = -20.0
+           // DeskOffset = -20.0
             TilesOffset = -25.0
             BallPhBodyOffset = -2.0
             BallImpulseDx = 1.0
@@ -426,7 +430,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ObstacleHeight = 8.0
             BallSize = 18.0
             PhysicBodyBasketOffset = -32.0
-            DeskOffset = -20.0
+           // DeskOffset = -20.0
             TilesOffset = -25.0
             BallPhBodyOffset = -2.0
             BallImpulseDx = 1.2
@@ -440,7 +444,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ObstacleHeight = 9.0
             BallSize = 21.0
             PhysicBodyBasketOffset = -40.0
-            DeskOffset = -20.0
+           // DeskOffset = -20.0
             TilesOffset = -25.0
             BallPhBodyOffset = -3.0
             BallImpulseDx = 1.2
@@ -454,7 +458,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ObstacleHeight = 10.0
             BallSize = 22.0
             PhysicBodyBasketOffset = -50.0
-            DeskOffset = -20.0
+           // DeskOffset = -20.0
             TilesOffset = -25.0
             BallPhBodyOffset = -4.0
             BallImpulseDx = 1.3
@@ -467,12 +471,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ObstacleHeight = 10.0
             BallSize = 22.0
             PhysicBodyBasketOffset = -50.0
-            DeskOffset = -20.0
+            // DeskOffset = -20.0
             TilesOffset = -25.0
             BallPhBodyOffset = -4.0
             BallImpulseDx = 1.3
             BallImpulseDy = 1.3
-            print("not an iPhone")
+             print("iPad")
             
         }
     }

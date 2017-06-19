@@ -58,4 +58,38 @@ class ShopTableViewController: UIViewController, UITableViewDelegate, UITableVie
         NSLog("You selected cell number: \(indexPath.row)!")
         UserDefaults.standard.setValue(indexPath.row, forKey: SelectedThemeKey)
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        let screenSize = UIScreen.main.bounds
+        
+        switch screenSize.height {
+        case 480.0:
+            print("iPhone 3,4")
+            return 66
+            
+        case 568.0:
+            print("iPhone 5")
+            return 66
+            
+        case 667.0:
+            print("iPhone 6")
+            return 66
+            
+        case 736.0:
+            print("iPhone 6+")
+            return 66
+            
+        default:
+            return 100
+            
+            
+        }
+    }
+    
+    
+    func initSizes(){
+        
+    }
+
 }
